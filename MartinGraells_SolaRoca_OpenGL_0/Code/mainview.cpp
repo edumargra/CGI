@@ -70,7 +70,6 @@ void MainView::initializeGL() {
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
-
     glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(GLvoid*)(2*sizeof(float)));
 }
 
