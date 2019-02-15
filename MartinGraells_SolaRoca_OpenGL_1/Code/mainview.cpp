@@ -76,20 +76,20 @@ void MainView::initializeGL() {
     btr.y=1;
     btr.z=1;
     btr.r=1;
-    btr.g=0;
-    btr.b=0;
+    btr.g=1;
+    btr.b=1;
 
     bur.x=1;
     bur.y=1;
     bur.z=-1;
-    bur.r=0;
+    bur.r=1;
     bur.g=1;
     bur.b=0;
 
     ftr.x=1;
     ftr.y=-1;
     ftr.z=1;
-    ftr.r=0;
+    ftr.r=1;
     ftr.g=0;
     ftr.b=1;
 
@@ -105,38 +105,38 @@ void MainView::initializeGL() {
     btl.z=1;
     btl.r=0;
     btl.g=1;
-    btl.b=0;
+    btl.b=1;
 
     bul.x=-1;
     bul.y=1;
     bul.z=-1;
     bul.r=0;
-    bul.g=0;
-    bul.b=1;
+    bul.g=1;
+    bul.b=0;
 
     ftl.x=-1;
     ftl.y=-1;
     ftl.z=1;
-    ftl.r=1;
+    ftl.r=0;
     ftl.g=0;
-    ftl.b=0;
+    ftl.b=1;
 
     ful.x=-1;
     ful.y=-1;
     ful.z=-1;
     ful.r=0;
-    ful.g=1;
+    ful.g=0;
     ful.b=0;
 
     topOfPyramid.x=0;
     topOfPyramid.y=0;
     topOfPyramid.z=1;
-    topOfPyramid.r=1;
+    topOfPyramid.r=0;
     topOfPyramid.g=0;
-    topOfPyramid.b=0;
+    topOfPyramid.b=1;
 
     //cube defined by two trianles per face
-    Vertex cube[] = {ful,fur,ftl,fur,ftr,ftl,fur,bur,ftl,bur,btr,ftr,bur,bul,btr,bul,btl,btr,ful,ftl,btl,bul,ful,btl,ftl,ftr,btl,ftr,btr,btl,ful,bul,fur,fur,bul,bur};
+    Vertex cube[] = {ful,fur,ftl,fur,ftr,ftl,fur,bur,ftr,bur,btr,ftr,bur,bul,btr,bul,btl,btr,ful,ftl,btl,bul,ful,btl,ftl,ftr,btl,ftr,btr,btl,ful,bul,fur,fur,bul,bur};
     Vertex pyramid[] = {ful,bul,fur,fur,bul,bur,ful,fur,topOfPyramid,fur,bur,topOfPyramid,bur,bul,topOfPyramid,bul,ful,topOfPyramid};
 
 
@@ -166,14 +166,49 @@ void MainView::initializeGL() {
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
     glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(GLvoid*)(3*sizeof(float)));
 
-    model_cube = new QMatrix4x4();
-    model_pyramid = new QMatrix4x4();
-    QVector3D trans_cube = new QVector3D(2,0,-6);
-    QVector3D trans_pyramid = new QVector3D(-2,0,-6);
+    QVector3D trans_cube (2,0,-6);
+    QVector3D trans_pyramid (-2,0,-6);
     model_cube.translate(trans_cube);
     model_pyramid.translate(trans_pyramid);
 
+    sphere = new Model(":/models/sphere.obj");
+    QVector<QVector3D> vertices = sphere->getVertices();
 
+    QVector<QVector3D>::iterator i;
+    Vertex sphereVertices[vertices.size()];
+    Vertex temporaryVertex;
+    int j=0;
+    for(i=vertices.begin();i<vertices.end();i++){
+        temporaryVertex.x = ((QVector3D)(*i)).x();
+        temporaryVertex.y = ((QVector3D)(*i)).y();
+        temporaryVertex.z = ((QVector3D)(*i)).z();
+        temporaryVertex.r = rand();
+        temporaryVertex.g = rand();
+        temporaryVertex.b = rand();
+        sphereVertices[j] = temporaryVertex;
+        j++;
+    }
+
+    glGenBuffers(1, &vbo_sphere);
+    glGenVertexArrays(1, &vao_sphere);
+    glBindVertexArray(vao_sphere);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_sphere);
+    //we send the pyramid to the gpu
+    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*vertices.size(),sphereVertices, GL_DYNAMIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(GLvoid*)(3*sizeof(float)));
+
+    QVector3D trans_sphere (0,0,-10);
+    model_sphere.translate(trans_sphere);
+
+    projection.setToIdentity();
+    projection.perspective(60,(float)this->width()/(float)this->height(),0.4,20);
+
+    previousScale = 100;
+    previousRotation = {0,0,0};
 
 }
 
@@ -181,10 +216,13 @@ void MainView::createShaderProgram()
 {
     // Create shader program
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex,
-                                           ":/shaders/vertshader.glsl");
+                                          ":/shaders/vertshader.glsl");
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment,
                                            ":/shaders/fragshader.glsl");
     shaderProgram.link();
+
+    modelLocation = shaderProgram.uniformLocation("modelTransform");
+    projectionLocation = shaderProgram.uniformLocation("projectionTransform");
 }
 
 // --- OpenGL drawing
@@ -200,13 +238,22 @@ void MainView::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shaderProgram.bind();
+    glUniformMatrix4fv(projectionLocation,1,GL_FALSE,projection.data());
+    glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_cube.data());
 
     // Draw here
     glBindVertexArray(vao_cube);
     glDrawArrays(GL_TRIANGLES,0,36);
+
+    glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_pyramid.data());
+
     glBindVertexArray(vao_pyramid);
     glDrawArrays(GL_TRIANGLES,0,18);
 
+    glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_sphere.data());
+
+    glBindVertexArray(vao_sphere);
+    glDrawArrays(GL_TRIANGLES,0,sphere->getVertices().size());
 
     shaderProgram.release();
 }
@@ -222,22 +269,36 @@ void MainView::paintGL() {
 void MainView::resizeGL(int newWidth, int newHeight) 
 {
     // TODO: Update projection to fit the new aspect ratio
-    Q_UNUSED(newWidth)
-    Q_UNUSED(newHeight)
-}
+    projection.setToIdentity();
+    projection.perspective(60,(float)newWidth/(float)newHeight,0.4,20);
 
+}
 // --- Public interface
 
 void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 {
     qDebug() << "Rotation changed to (" << rotateX << "," << rotateY << "," << rotateZ << ")";
-    Q_UNIMPLEMENTED();
+    QVector3D currentRotation (rotateX, rotateY, rotateZ);
+    QVector3D actualRotation = currentRotation - previousRotation;
+    qDebug() <<  actualRotation;
+    model_cube.rotate(actualRotation[0],1,0,0);
+    model_cube.rotate(actualRotation[1],0,1,0);
+    model_cube.rotate(actualRotation[2],0,0,1);
+    model_pyramid.rotate(actualRotation[0],1,0,0);
+    model_pyramid.rotate(actualRotation[1],0,1,0);
+    model_pyramid.rotate(actualRotation[2],0,0,1);
+    previousRotation = currentRotation;
+    qDebug() << previousRotation;
+    this->update();
 }
 
 void MainView::setScale(int scale)
 {
-    qDebug() << "Scale changed to " << scale;
-    Q_UNIMPLEMENTED();
+    model_cube.scale((float)scale/(float)(previousScale));
+    model_pyramid.scale((float)scale/(float)(previousScale));
+    previousScale = scale;
+    this->update();
+
 }
 
 void MainView::setShadingMode(ShadingMode shading)
