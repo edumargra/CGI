@@ -182,9 +182,9 @@ void MainView::initializeGL() {
         temporaryVertex.x = ((QVector3D)(*i)).x();
         temporaryVertex.y = ((QVector3D)(*i)).y();
         temporaryVertex.z = ((QVector3D)(*i)).z();
-        temporaryVertex.r = rand();
-        temporaryVertex.g = rand();
-        temporaryVertex.b = rand();
+        temporaryVertex.r = 1;
+        temporaryVertex.g = 0;
+        temporaryVertex.b = 0;
         sphereVertices[j] = temporaryVertex;
         j++;
     }
@@ -246,12 +246,10 @@ void MainView::paintGL() {
     glDrawArrays(GL_TRIANGLES,0,36);
 
     glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_pyramid.data());
-
     glBindVertexArray(vao_pyramid);
     glDrawArrays(GL_TRIANGLES,0,18);
 
     glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_sphere.data());
-
     glBindVertexArray(vao_sphere);
     glDrawArrays(GL_TRIANGLES,0,sphere->getVertices().size());
 
@@ -280,6 +278,9 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
     qDebug() << "Rotation changed to (" << rotateX << "," << rotateY << "," << rotateZ << ")";
     QVector3D currentRotation (rotateX, rotateY, rotateZ);
     QVector3D actualRotation = currentRotation - previousRotation;
+    if (rotateX == 0 && rotateY == 0 && rotateZ == 0){
+        actualRotation = {0,0,0};
+    }
     qDebug() <<  actualRotation;
     model_cube.rotate(actualRotation[0],1,0,0);
     model_cube.rotate(actualRotation[1],0,1,0);
@@ -287,8 +288,12 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
     model_pyramid.rotate(actualRotation[0],1,0,0);
     model_pyramid.rotate(actualRotation[1],0,1,0);
     model_pyramid.rotate(actualRotation[2],0,0,1);
+    model_sphere.rotate(actualRotation[0],1,0,0);
+    model_sphere.rotate(actualRotation[1],0,1,0);
+    model_sphere.rotate(actualRotation[2],0,0,1);
     previousRotation = currentRotation;
     qDebug() << previousRotation;
+
     this->update();
 }
 
@@ -296,6 +301,7 @@ void MainView::setScale(int scale)
 {
     model_cube.scale((float)scale/(float)(previousScale));
     model_pyramid.scale((float)scale/(float)(previousScale));
+    model_sphere.scale((float)scale/(float)(previousScale));
     previousScale = scale;
     this->update();
 
