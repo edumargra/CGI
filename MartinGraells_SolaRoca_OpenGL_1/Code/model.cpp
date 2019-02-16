@@ -73,7 +73,7 @@ Model::Model(QString filename) {
 }
 
 /**
- * @brief Model::unitze Not Implemented yet!
+ * @brief Model::unitze
  *
  * Unitize the model by scaling so that it fits a box with sides 1
  * and origin at 0,0,0
@@ -81,7 +81,10 @@ Model::Model(QString filename) {
  *
  */
 void Model::unitize() {
-    qDebug() << "TODO: implement this yourself";
+    QVector<QVector3D>::iterator i;
+    for(i=vertices.begin();i<vertices.end();i++){
+        i->normalize();
+    }
 }
 
 QVector<QVector3D> Model::getVertices() {

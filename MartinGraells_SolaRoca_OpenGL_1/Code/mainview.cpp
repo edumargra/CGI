@@ -172,19 +172,19 @@ void MainView::initializeGL() {
     model_pyramid.translate(trans_pyramid);
 
     sphere = new Model(":/models/sphere.obj");
+    sphere->unitize();
     QVector<QVector3D> vertices = sphere->getVertices();
-
     QVector<QVector3D>::iterator i;
     Vertex sphereVertices[vertices.size()];
     Vertex temporaryVertex;
     int j=0;
     for(i=vertices.begin();i<vertices.end();i++){
-        temporaryVertex.x = ((QVector3D)(*i)).x();
-        temporaryVertex.y = ((QVector3D)(*i)).y();
-        temporaryVertex.z = ((QVector3D)(*i)).z();
-        temporaryVertex.r = 1;
-        temporaryVertex.g = 0;
-        temporaryVertex.b = 0;
+        temporaryVertex.x = i->x();
+        temporaryVertex.y = i->y();
+        temporaryVertex.z = i->z();
+        temporaryVertex.r = (float) rand() / RAND_MAX;
+        temporaryVertex.g = (float) rand() / RAND_MAX;
+        temporaryVertex.b = (float) rand() / RAND_MAX;
         sphereVertices[j] = temporaryVertex;
         j++;
     }
@@ -203,7 +203,7 @@ void MainView::initializeGL() {
 
     QVector3D trans_sphere (0,0,-10);
     model_sphere.translate(trans_sphere);
-
+    qDebug() << model_sphere;
     projection.setToIdentity();
     projection.perspective(60,(float)this->width()/(float)this->height(),0.4,20);
 
@@ -276,23 +276,21 @@ void MainView::resizeGL(int newWidth, int newHeight)
 void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 {
     qDebug() << "Rotation changed to (" << rotateX << "," << rotateY << "," << rotateZ << ")";
-    QVector3D currentRotation (rotateX, rotateY, rotateZ);
-    QVector3D actualRotation = currentRotation - previousRotation;
-    if (rotateX == 0 && rotateY == 0 && rotateZ == 0){
-        actualRotation = {0,0,0};
-    }
-    qDebug() <<  actualRotation;
-    model_cube.rotate(actualRotation[0],1,0,0);
-    model_cube.rotate(actualRotation[1],0,1,0);
-    model_cube.rotate(actualRotation[2],0,0,1);
-    model_pyramid.rotate(actualRotation[0],1,0,0);
-    model_pyramid.rotate(actualRotation[1],0,1,0);
-    model_pyramid.rotate(actualRotation[2],0,0,1);
-    model_sphere.rotate(actualRotation[0],1,0,0);
-    model_sphere.rotate(actualRotation[1],0,1,0);
-    model_sphere.rotate(actualRotation[2],0,0,1);
-    previousRotation = currentRotation;
-    qDebug() << previousRotation;
+    model_cube.setToIdentity();
+    model_pyramid.setToIdentity();
+    model_sphere.setToIdentity();
+    model_cube.translate({2,0,-6});
+    model_pyramid.translate({-2,0,-6});
+    model_sphere.translate({0,0,-10});
+    model_cube.rotate(rotateX,1,0,0);
+    model_cube.rotate(rotateY,0,1,0);
+    model_cube.rotate(rotateZ,0,0,1);
+    model_pyramid.rotate(rotateX,1,0,0);
+    model_pyramid.rotate(rotateZ,0,1,0);
+    model_pyramid.rotate(rotateY,0,0,1);
+    model_sphere.rotate(rotateX,1,0,0);
+    model_sphere.rotate(rotateY,0,1,0);
+    model_sphere.rotate(rotateZ,0,0,1);
 
     this->update();
 }
