@@ -73,6 +73,8 @@ private slots:
 
 private:
     void createShaderProgram();
+    void setScaleIntern(float scale);
+    void setAndTranslateModels();
 
 };
 

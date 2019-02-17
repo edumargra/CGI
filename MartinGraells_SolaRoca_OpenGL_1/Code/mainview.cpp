@@ -70,6 +70,8 @@ void MainView::initializeGL() {
 
     createShaderProgram();
 
+    //Definition of the vertices that form the cube and the pyramid
+    //b/f=back/front, t/b=top/below, r/l=right/left
     Vertex btr,bur,ftr,fur,btl,bul,ftl,ful,topOfPyramid;
 
     btr.x=1;
@@ -136,76 +138,66 @@ void MainView::initializeGL() {
     topOfPyramid.b=1;
 
     //cube defined by two trianles per face
-    Vertex cube[] = {ful,fur,ftl,fur,ftr,ftl,fur,bur,ftr,bur,btr,ftr,bur,bul,btr,bul,btl,btr,ful,ftl,btl,bul,ful,btl,ftl,ftr,btl,ftr,btr,btl,ful,bul,fur,fur,bul,bur};
-    Vertex pyramid[] = {ful,bul,fur,fur,bul,bur,ful,fur,topOfPyramid,fur,bur,topOfPyramid,bur,bul,topOfPyramid,bul,ful,topOfPyramid};
+    std::vector<Vertex> cube = {ful,fur,ftl,fur,ftr,ftl,fur,bur,ftr,bur,btr,ftr,bur,bul,btr,bul,btl,btr,ful,ftl,btl,bul,ful,btl,ftl,ftr,btl,ftr,btr,btl,ful,bul,fur,fur,bul,bur};
+    std::vector<Vertex> pyramid = {ful,bul,fur,fur,bul,bur,ful,fur,topOfPyramid,fur,bur,topOfPyramid,bur,bul,topOfPyramid,bul,ful,topOfPyramid};
 
 
-    //initialize cube vbo and vao
+    //we send the cube to the gpu
     glGenBuffers(1, &vbo_cube);
     glGenVertexArrays(1, &vao_cube);
     glBindVertexArray(vao_cube);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_cube);
-    //we send the cube to the gpu
-    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*36,cube, GL_DYNAMIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*36,cube.data(), GL_DYNAMIC_DRAW);
+    //Describe Vertices
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(GLvoid*)(3*sizeof(float)));
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
 
-    //initialize pyramid vbo and vao
+    //we send the pyramid to the gpu
     glGenBuffers(1, &vbo_pyramid);
     glGenVertexArrays(1, &vao_pyramid);
     glBindVertexArray(vao_pyramid);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_pyramid);
-    //we send the pyramid to the gpu
-    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*18,pyramid, GL_DYNAMIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*18,pyramid.data(), GL_DYNAMIC_DRAW);
+    //Describe Vertices
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(GLvoid*)(3*sizeof(float)));
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
 
-    QVector3D trans_cube (2,0,-6);
-    QVector3D trans_pyramid (-2,0,-6);
-    model_cube.translate(trans_cube);
-    model_pyramid.translate(trans_pyramid);
-
+    //Load sphere
     sphere = new Model(":/models/sphere.obj");
-    sphere->unitize();
     QVector<QVector3D> vertices = sphere->getVertices();
-    QVector<QVector3D>::iterator i;
-    Vertex sphereVertices[vertices.size()];
+    std::vector<Vertex> sphereVertices;
     Vertex temporaryVertex;
-    int j=0;
-    for(i=vertices.begin();i<vertices.end();i++){
-        temporaryVertex.x = i->x();
-        temporaryVertex.y = i->y();
-        temporaryVertex.z = i->z();
-        temporaryVertex.r = (float) rand() / RAND_MAX;
-        temporaryVertex.g = (float) rand() / RAND_MAX;
-        temporaryVertex.b = (float) rand() / RAND_MAX;
-        sphereVertices[j] = temporaryVertex;
-        j++;
+    //Vertices in order with color
+    for(auto const &vertex: vertices){
+        temporaryVertex.x = vertex.x();
+        temporaryVertex.y = vertex.y();
+        temporaryVertex.z = vertex.z();
+        temporaryVertex.r = static_cast<float>(rand()) / RAND_MAX;
+        temporaryVertex.g = static_cast<float>(rand()) / RAND_MAX;
+        temporaryVertex.b = static_cast<float>(rand()) / RAND_MAX;
+        sphereVertices.push_back(temporaryVertex);
     }
-
+    //Pass it to the GPU
     glGenBuffers(1, &vbo_sphere);
     glGenVertexArrays(1, &vao_sphere);
     glBindVertexArray(vao_sphere);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_sphere);
-    //we send the pyramid to the gpu
-    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*vertices.size(),sphereVertices, GL_DYNAMIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*vertices.size(),sphereVertices.data(), GL_DYNAMIC_DRAW);
+    //Describe vertexes
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(GLvoid*)(3*sizeof(float)));
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
 
-    QVector3D trans_sphere (0,0,-10);
-    model_sphere.translate(trans_sphere);
-    qDebug() << model_sphere;
+    //Create and translate all the models and scale the sphere
+    setAndTranslateModels();
+    //Projection of the scene
     projection.setToIdentity();
-    projection.perspective(60,(float)this->width()/(float)this->height(),0.4,20);
+    projection.perspective(60,static_cast<float>(width())/height(),0.4f,20);
 
     previousScale = 100;
     previousRotation = {0,0,0};
@@ -239,16 +231,16 @@ void MainView::paintGL() {
 
     shaderProgram.bind();
     glUniformMatrix4fv(projectionLocation,1,GL_FALSE,projection.data());
-    glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_cube.data());
 
-    // Draw here
+    //Draw cube
+    glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_cube.data());
     glBindVertexArray(vao_cube);
     glDrawArrays(GL_TRIANGLES,0,36);
-
+    //Draw pyramid
     glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_pyramid.data());
     glBindVertexArray(vao_pyramid);
     glDrawArrays(GL_TRIANGLES,0,18);
-
+    //Draw sphere
     glUniformMatrix4fv(modelLocation,1,GL_FALSE,model_sphere.data());
     glBindVertexArray(vao_sphere);
     glDrawArrays(GL_TRIANGLES,0,sphere->getVertices().size());
@@ -268,7 +260,7 @@ void MainView::resizeGL(int newWidth, int newHeight)
 {
     // TODO: Update projection to fit the new aspect ratio
     projection.setToIdentity();
-    projection.perspective(60,(float)newWidth/(float)newHeight,0.4,20);
+    projection.perspective(60,static_cast<float>(newWidth)/newHeight,0.4f,20);
 
 }
 // --- Public interface
@@ -276,12 +268,8 @@ void MainView::resizeGL(int newWidth, int newHeight)
 void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 {
     qDebug() << "Rotation changed to (" << rotateX << "," << rotateY << "," << rotateZ << ")";
-    model_cube.setToIdentity();
-    model_pyramid.setToIdentity();
-    model_sphere.setToIdentity();
-    model_cube.translate({2,0,-6});
-    model_pyramid.translate({-2,0,-6});
-    model_sphere.translate({0,0,-10});
+    setAndTranslateModels();
+    setScaleIntern(previousScale/100);
     model_cube.rotate(rotateX,1,0,0);
     model_cube.rotate(rotateY,0,1,0);
     model_cube.rotate(rotateZ,0,0,1);
@@ -291,18 +279,35 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
     model_sphere.rotate(rotateX,1,0,0);
     model_sphere.rotate(rotateY,0,1,0);
     model_sphere.rotate(rotateZ,0,0,1);
-
+    qDebug() << "model after rotate" << model_cube;
     this->update();
 }
 
 void MainView::setScale(int scale)
 {
-    model_cube.scale((float)scale/(float)(previousScale));
-    model_pyramid.scale((float)scale/(float)(previousScale));
-    model_sphere.scale((float)scale/(float)(previousScale));
+    setScaleIntern(static_cast<float>(scale)/(previousScale));
     previousScale = scale;
+    qDebug() << "model after scale" << model_cube;
     this->update();
 
+}
+
+void MainView::setScaleIntern(float scale)
+{
+    model_cube.scale(scale);
+    model_pyramid.scale(scale);
+    model_sphere.scale(scale);
+}
+
+void MainView::setAndTranslateModels()
+{
+    model_cube.setToIdentity();
+    model_pyramid.setToIdentity();
+    model_sphere.setToIdentity();
+    model_cube.translate({2,0,-6});
+    model_pyramid.translate({-2,0,-6});
+    model_sphere.translate({0,0,-10});
+    model_sphere.scale(0.04f);
 }
 
 void MainView::setShadingMode(ShadingMode shading)
