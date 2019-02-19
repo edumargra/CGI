@@ -51,6 +51,8 @@ public:
     void setRotation(int rotateX, int rotateY, int rotateZ);
     void setScale(int scale);
     void setShadingMode(ShadingMode shading);
+    
+    void describeVertex();
 
 protected:
     void initializeGL();
@@ -73,6 +75,7 @@ private slots:
 
 private:
     void createShaderProgram();
+    void setRotationIntern(int rotateX, int rotateY, int rotateZ);
     void setScaleIntern(float scale);
     void setAndTranslateModels();
 

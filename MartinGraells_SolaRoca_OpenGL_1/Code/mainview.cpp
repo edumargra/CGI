@@ -38,6 +38,14 @@ MainView::~MainView() {
  * Called upon OpenGL initialization
  * Attaches a debugger and calls other init functions
  */
+void MainView::describeVertex()
+{
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
+}
+
 void MainView::initializeGL() {
     qDebug() << ":: Initializing OpenGL";
     initializeOpenGLFunctions();
@@ -149,10 +157,7 @@ void MainView::initializeGL() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo_cube);
     glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*36,cube.data(), GL_DYNAMIC_DRAW);
     //Describe Vertices
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
+    describeVertex();
 
     //we send the pyramid to the gpu
     glGenBuffers(1, &vbo_pyramid);
@@ -160,11 +165,7 @@ void MainView::initializeGL() {
     glBindVertexArray(vao_pyramid);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_pyramid);
     glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*18,pyramid.data(), GL_DYNAMIC_DRAW);
-    //Describe Vertices
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
+    describeVertex();
 
     //Load sphere
     sphere = new Model(":/models/sphere.obj");
@@ -187,11 +188,7 @@ void MainView::initializeGL() {
     glBindVertexArray(vao_sphere);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_sphere);
     glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*vertices.size(),sphereVertices.data(), GL_DYNAMIC_DRAW);
-    //Describe vertexes
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),nullptr);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),reinterpret_cast<GLvoid*>((3*sizeof(float))));
+    describeVertex();
 
     //Create and translate all the models and scale the sphere
     setAndTranslateModels();
@@ -270,6 +267,12 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
     qDebug() << "Rotation changed to (" << rotateX << "," << rotateY << "," << rotateZ << ")";
     setAndTranslateModels();
     setScaleIntern(previousScale/100);
+    setRotationIntern(rotateX,rotateY,rotateZ);
+    previousRotation = {static_cast<float>(rotateX),static_cast<float>(rotateY),static_cast<float>(rotateZ)};
+    this->update();
+}
+void MainView::setRotationIntern(int rotateX, int rotateY, int rotateZ)
+{
     model_cube.rotate(rotateX,1,0,0);
     model_cube.rotate(rotateY,0,1,0);
     model_cube.rotate(rotateZ,0,0,1);
@@ -279,15 +282,14 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
     model_sphere.rotate(rotateX,1,0,0);
     model_sphere.rotate(rotateY,0,1,0);
     model_sphere.rotate(rotateZ,0,0,1);
-    qDebug() << "model after rotate" << model_cube;
-    this->update();
 }
 
 void MainView::setScale(int scale)
 {
-    setScaleIntern(static_cast<float>(scale)/(previousScale));
+    setAndTranslateModels();
+    setRotationIntern(previousRotation.x(),previousRotation.y(),previousRotation.z());
+    setScaleIntern(static_cast<float>(scale)/100);
     previousScale = scale;
-    qDebug() << "model after scale" << model_cube;
     this->update();
 
 }
@@ -307,6 +309,7 @@ void MainView::setAndTranslateModels()
     model_cube.translate({2,0,-6});
     model_pyramid.translate({-2,0,-6});
     model_sphere.translate({0,0,-10});
+    //Downscale the sphere so that we can observe it
     model_sphere.scale(0.04f);
 }
 
