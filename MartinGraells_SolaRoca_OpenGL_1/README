@@ -1,0 +1,5 @@
+We believe executing the code produces the expected results. 
+Moving the rotation widgets and the scaling slider rotate and scale our figures.
+Our screenshots show how applying only rotation or scaling affect the figures, and also how apply both rotate and scale the figure.
+Our methods setRotation and setScale start by setting the model matrices to identity, translating them and then applying the previous scale or rotation 
+on them, depending on the method, and finally, rotating or scaling by the new values. 
