@@ -71,22 +71,22 @@ void MainView::initializeGL() {
     createShaderProgram();
 
     //Definition of the vertices that form the cube and the pyramid
-    //b/f=back/front, t/b=top/below, r/l=right/left
-    Vertex btr,bur,ftr,fur,btl,bul,ftl,ful,topOfPyramid;
+    //n/f=near/far, t/b=top/bottom, r/l=right/left
+    Vertex ntr,nbr,ftr,fbr,ntl,nbl,ftl,fbl,topOfPyramid;
 
-    btr.x=1;
-    btr.y=1;
-    btr.z=1;
-    btr.r=1;
-    btr.g=1;
-    btr.b=1;
+    ntr.x=1;
+    ntr.y=1;
+    ntr.z=1;
+    ntr.r=1;
+    ntr.g=1;
+    ntr.b=1;
 
-    bur.x=1;
-    bur.y=1;
-    bur.z=-1;
-    bur.r=1;
-    bur.g=1;
-    bur.b=0;
+    nbr.x=1;
+    nbr.y=1;
+    nbr.z=-1;
+    nbr.r=1;
+    nbr.g=1;
+    nbr.b=0;
 
     ftr.x=1;
     ftr.y=-1;
@@ -95,26 +95,26 @@ void MainView::initializeGL() {
     ftr.g=0;
     ftr.b=1;
 
-    fur.x=1;
-    fur.y=-1;
-    fur.z=-1;
-    fur.r=1;
-    fur.g=0;
-    fur.b=0;
+    fbr.x=1;
+    fbr.y=-1;
+    fbr.z=-1;
+    fbr.r=1;
+    fbr.g=0;
+    fbr.b=0;
 
-    btl.x=-1;
-    btl.y=1;
-    btl.z=1;
-    btl.r=0;
-    btl.g=1;
-    btl.b=1;
+    ntl.x=-1;
+    ntl.y=1;
+    ntl.z=1;
+    ntl.r=0;
+    ntl.g=1;
+    ntl.b=1;
 
-    bul.x=-1;
-    bul.y=1;
-    bul.z=-1;
-    bul.r=0;
-    bul.g=1;
-    bul.b=0;
+    nbl.x=-1;
+    nbl.y=1;
+    nbl.z=-1;
+    nbl.r=0;
+    nbl.g=1;
+    nbl.b=0;
 
     ftl.x=-1;
     ftl.y=-1;
@@ -123,12 +123,12 @@ void MainView::initializeGL() {
     ftl.g=0;
     ftl.b=1;
 
-    ful.x=-1;
-    ful.y=-1;
-    ful.z=-1;
-    ful.r=0;
-    ful.g=0;
-    ful.b=0;
+    fbl.x=-1;
+    fbl.y=-1;
+    fbl.z=-1;
+    fbl.r=0;
+    fbl.g=0;
+    fbl.b=0;
 
     topOfPyramid.x=0;
     topOfPyramid.y=0;
@@ -138,8 +138,8 @@ void MainView::initializeGL() {
     topOfPyramid.b=1;
 
     //cube defined by two trianles per face
-    std::vector<Vertex> cube = {ful,fur,ftl,fur,ftr,ftl,fur,bur,ftr,bur,btr,ftr,bur,bul,btr,bul,btl,btr,ful,ftl,btl,bul,ful,btl,ftl,ftr,btl,ftr,btr,btl,ful,bul,fur,fur,bul,bur};
-    std::vector<Vertex> pyramid = {ful,bul,fur,fur,bul,bur,ful,fur,topOfPyramid,fur,bur,topOfPyramid,bur,bul,topOfPyramid,bul,ful,topOfPyramid};
+    std::vector<Vertex> cube = {fbl,fbr,ftl,fbr,ftr,ftl,fbr,nbr,ftr,nbr,ntr,ftr,nbr,nbl,ntr,nbl,ntl,ntr,fbl,ftl,ntl,nbl,fbl,ntl,ftl,ftr,ntl,ftr,ntr,ntl,fbl,nbl,fbr,fbr,nbl,nbr};
+    std::vector<Vertex> pyramid = {fbl,nbl,fbr,fbr,nbl,nbr,fbl,fbr,topOfPyramid,fbr,nbr,topOfPyramid,nbr,nbl,topOfPyramid,nbl,fbl,topOfPyramid};
 
 
     //we send the cube to the gpu
