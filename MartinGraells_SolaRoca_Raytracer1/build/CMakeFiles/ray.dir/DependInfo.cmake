@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/raytracer.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/raytracer.cpp.o"
   "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/scene.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/scene.cpp.o"
   "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/example.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/example.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/plane.cpp.o"
   "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/sphere.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o"
   "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/triangle.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o"
   "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/triple.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/triple.cpp.o"

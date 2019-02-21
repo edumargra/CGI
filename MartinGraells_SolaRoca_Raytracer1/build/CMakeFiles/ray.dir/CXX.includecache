@@ -397,6 +397,8 @@ shapes/sphere.h
 /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/sphere.h
 shapes/triangle.h
 /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/triangle.h
+shapes/plane.h
+/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.h
 json/json.h
 /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/json/json.h
 exception
@@ -447,6 +449,16 @@ cmath
 -
 
 /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/example.h
+../object.h
+/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/object.h
+
+/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.cpp
+plane.h
+/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.h
+cmath
+-
+
+/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.h
 ../object.h
 /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/object.h
 

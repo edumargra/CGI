@@ -1,0 +1,69 @@
+{
+    "Eye": [200, 200, 1000],
+    "Lights": [
+        {
+            "position": [-200, 600, 1500],
+            "color": [1.0, 1.0, 1.0]
+        }
+    ],
+    "Objects": [
+        {
+            "type": "sphere",
+            "comment": "Blue sphere",
+            "position": [90, 320, 100],
+            "radius": 50,
+            "material":
+            {
+                "color": [0.0, 0.0, 1.0],
+                "ka": 0.2,
+                "kd": 0.7,
+                "ks": 0.5,
+                "n": 64
+            }
+        },
+        {
+            "type": "sphere",
+            "comment": "Green sphere",
+            "position": [210, 270, 300],
+            "radius": 50,
+            "material":
+            {
+                "color": [0.0, 1.0, 0.0],
+                "ka": 0.2,
+                "kd": 0.3,
+                "ks": 0.5,
+                "n": 8
+            }
+        },
+	{
+            "type": "triangle",
+            "comment": "red triangle",
+            "vertex1": [100, 170, 150],
+            "vertex2": [320, 190, 150],
+            "vertex3": [290, 250, 150],
+            "material":
+            {
+                "color": [1.0, 0.0, 0.0],
+                "ka": 0.2,
+                "kd": 0.3,
+                "ks": 0.5,
+                "n": 8
+            }
+        },
+	{
+            "type": "plane",
+            "comment": "blue plane",
+            "point1": [100, 170, 150],
+            "point2": [320, 190, 150],
+            "point3": [290, 250, 150],
+            "material":
+            {
+                "color": [1.0, 0.0, 0.0],
+                "ka": 0.2,
+                "kd": 0.3,
+                "ks": 0.5,
+                "n": 8
+            }
+        }
+    ]
+}
