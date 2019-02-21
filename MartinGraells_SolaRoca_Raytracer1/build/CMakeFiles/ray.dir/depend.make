@@ -37,6 +37,7 @@ CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/raytracer.cpp
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/raytracer.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/scene.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/shapes/sphere.h
+CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/shapes/triangle.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/triple.h
 
 CMakeFiles/ray.dir/Code/scene.cpp.o: ../Code/hit.h
@@ -67,6 +68,15 @@ CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o: ../Code/ray.h
 CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o: ../Code/shapes/sphere.cpp
 CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o: ../Code/shapes/sphere.h
 CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o: ../Code/triple.h
+
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/hit.h
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/json/json_fwd.h
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/material.h
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/object.h
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/ray.h
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/shapes/triangle.cpp
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/shapes/triangle.h
+CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o: ../Code/triple.h
 
 CMakeFiles/ray.dir/Code/triple.cpp.o: ../Code/json/json.h
 CMakeFiles/ray.dir/Code/triple.cpp.o: ../Code/json/json_fwd.h
