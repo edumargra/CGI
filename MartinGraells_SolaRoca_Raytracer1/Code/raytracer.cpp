@@ -13,6 +13,7 @@
 #include "shapes/triangle.h"
 #include "shapes/plane.h"
 #include "shapes/cylinder.h"
+#include "shapes/quad.h"
 // =============================================================================
 // -- End of shape includes ----------------------------------------------------
 // =============================================================================
@@ -58,6 +59,13 @@ bool Raytracer::parseObjectNode(json const &node)
         Point pos2(node["end_position"]);
         double radius = node["radius"];
         obj = ObjectPtr(new Cylinder(pos1,pos2,radius));
+    }else if(node["type"] == "quad")
+    {
+        Point pos1(node["vertex1"]);
+        Point pos2(node["vertex2"]);
+        Point pos3(node["vertex3"]);
+        Point pos4(node["vertex4"]);
+        obj = ObjectPtr(new Quad(pos1,pos2,pos3,pos4));
     }else{
         cerr << "Unknown object type: " << node["type"] << ".\n";
     }
