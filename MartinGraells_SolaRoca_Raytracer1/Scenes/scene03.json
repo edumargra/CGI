@@ -51,11 +51,11 @@
             }
         },
 	{
-            "type": "plane",
-            "comment": "blue plane",
-            "point1": [100, 170, 150],
-            "point2": [320, 190, 150],
-            "point3": [290, 250, 150],
+            "type": "cylinder",
+            "comment": "green cylinder",
+            "initial_position": [200,100,60],
+            "end_position": [200,100,150] ,
+	    "radius": 30,
             "material":
             {
                 "color": [1.0, 0.0, 0.0],

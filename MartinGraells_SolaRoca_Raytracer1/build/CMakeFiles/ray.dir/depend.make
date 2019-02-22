@@ -36,6 +36,7 @@ CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/ray.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/raytracer.cpp
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/raytracer.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/scene.h
+CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/shapes/cylinder.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/shapes/plane.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/shapes/sphere.h
 CMakeFiles/ray.dir/Code/raytracer.cpp.o: ../Code/shapes/triangle.h
@@ -51,6 +52,15 @@ CMakeFiles/ray.dir/Code/scene.cpp.o: ../Code/ray.h
 CMakeFiles/ray.dir/Code/scene.cpp.o: ../Code/scene.cpp
 CMakeFiles/ray.dir/Code/scene.cpp.o: ../Code/scene.h
 CMakeFiles/ray.dir/Code/scene.cpp.o: ../Code/triple.h
+
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/hit.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/json/json_fwd.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/material.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/object.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/ray.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/shapes/cylinder.cpp
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/shapes/cylinder.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/triple.h
 
 CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/hit.h
 CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/json/json_fwd.h

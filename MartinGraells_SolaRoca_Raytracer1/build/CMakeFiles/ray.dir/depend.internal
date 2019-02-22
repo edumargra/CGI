@@ -37,6 +37,7 @@ CMakeFiles/ray.dir/Code/raytracer.cpp.o
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/raytracer.cpp
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/raytracer.h
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/scene.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/cylinder.h
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.h
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/sphere.h
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/triangle.h
@@ -51,6 +52,15 @@ CMakeFiles/ray.dir/Code/scene.cpp.o
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/ray.h
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/scene.cpp
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/scene.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/triple.h
+CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/hit.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/json/json_fwd.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/material.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/object.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/ray.h
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/cylinder.cpp
+ /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/cylinder.h
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/triple.h
 CMakeFiles/ray.dir/Code/shapes/example.cpp.o
  /home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/hit.h
