@@ -297,9 +297,33 @@ CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o.provides: CMakeFiles/ray.dir/Code/sh
 CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o.provides.build: CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o
 
 
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o: CMakeFiles/ray.dir/flags.make
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o: ../Code/shapes/mesh.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o -c /home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/mesh.cpp
+
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ray.dir/Code/shapes/mesh.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/mesh.cpp > CMakeFiles/ray.dir/Code/shapes/mesh.cpp.i
+
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ray.dir/Code/shapes/mesh.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/mesh.cpp -o CMakeFiles/ray.dir/Code/shapes/mesh.cpp.s
+
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.requires:
+
+.PHONY : CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.requires
+
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.provides: CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.provides.build
+.PHONY : CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.provides
+
+CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.provides.build: CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o
+
+
 CMakeFiles/ray.dir/Code/objloader.cpp.o: CMakeFiles/ray.dir/flags.make
 CMakeFiles/ray.dir/Code/objloader.cpp.o: ../Code/objloader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ray.dir/Code/objloader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/ray.dir/Code/objloader.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ray.dir/Code/objloader.cpp.o -c /home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/objloader.cpp
 
 CMakeFiles/ray.dir/Code/objloader.cpp.i: cmake_force
@@ -323,7 +347,7 @@ CMakeFiles/ray.dir/Code/objloader.cpp.o.provides.build: CMakeFiles/ray.dir/Code/
 
 CMakeFiles/ray.dir/Code/main.cpp.o: CMakeFiles/ray.dir/flags.make
 CMakeFiles/ray.dir/Code/main.cpp.o: ../Code/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/ray.dir/Code/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/ray.dir/Code/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ray.dir/Code/main.cpp.o -c /home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/main.cpp
 
 CMakeFiles/ray.dir/Code/main.cpp.i: cmake_force
@@ -347,7 +371,7 @@ CMakeFiles/ray.dir/Code/main.cpp.o.provides.build: CMakeFiles/ray.dir/Code/main.
 
 CMakeFiles/ray.dir/Code/scene.cpp.o: CMakeFiles/ray.dir/flags.make
 CMakeFiles/ray.dir/Code/scene.cpp.o: ../Code/scene.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/ray.dir/Code/scene.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/ray.dir/Code/scene.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ray.dir/Code/scene.cpp.o -c /home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/scene.cpp
 
 CMakeFiles/ray.dir/Code/scene.cpp.i: cmake_force
@@ -381,6 +405,7 @@ ray_OBJECTS = \
 "CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o" \
 "CMakeFiles/ray.dir/Code/shapes/quad.cpp.o" \
 "CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o" \
+"CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o" \
 "CMakeFiles/ray.dir/Code/objloader.cpp.o" \
 "CMakeFiles/ray.dir/Code/main.cpp.o" \
 "CMakeFiles/ray.dir/Code/scene.cpp.o"
@@ -398,12 +423,13 @@ ray: CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o
 ray: CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o
 ray: CMakeFiles/ray.dir/Code/shapes/quad.cpp.o
 ray: CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o
+ray: CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o
 ray: CMakeFiles/ray.dir/Code/objloader.cpp.o
 ray: CMakeFiles/ray.dir/Code/main.cpp.o
 ray: CMakeFiles/ray.dir/Code/scene.cpp.o
 ray: CMakeFiles/ray.dir/build.make
 ray: CMakeFiles/ray.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable ray"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable ray"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ray.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -421,6 +447,7 @@ CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o.requi
 CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o.requires
 CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/shapes/quad.cpp.o.requires
 CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o.requires
+CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o.requires
 CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/objloader.cpp.o.requires
 CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/main.cpp.o.requires
 CMakeFiles/ray.dir/requires: CMakeFiles/ray.dir/Code/scene.cpp.o.requires

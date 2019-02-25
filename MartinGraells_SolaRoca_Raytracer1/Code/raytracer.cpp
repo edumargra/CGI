@@ -1,5 +1,5 @@
 #include "raytracer.h"
-
+#include "objloader.h"
 #include "image.h"
 #include "light.h"
 #include "material.h"
@@ -14,6 +14,7 @@
 #include "shapes/plane.h"
 #include "shapes/cylinder.h"
 #include "shapes/quad.h"
+#include "shapes/mesh.h"
 // =============================================================================
 // -- End of shape includes ----------------------------------------------------
 // =============================================================================
@@ -66,6 +67,11 @@ bool Raytracer::parseObjectNode(json const &node)
         Point pos3(node["vertex3"]);
         Point pos4(node["vertex4"]);
         obj = ObjectPtr(new Quad(pos1,pos2,pos3,pos4));
+    }else if(node["type"] == "mesh")
+    {
+        std::string url = node["model"];
+        OBJLoader objLoader(url);
+        obj = ObjectPtr(new Mesh(objLoader.vertex_data()));
     }else{
         cerr << "Unknown object type: " << node["type"] << ".\n";
     }

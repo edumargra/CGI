@@ -57,3 +57,9 @@ Triangle::Triangle(Point const &pos1, Point const &pos2, Point const &pos3)
     vertex2(pos2),
     vertex3(pos3)
 {}
+Triangle::Triangle(Vertex const &pos1, Vertex const &pos2, Vertex const &pos3)
+:
+    vertex1(100*pos1.x,100*pos1.y,100*pos1.z),
+    vertex2(100*pos2.x,100*pos2.y,100*pos2.z),
+    vertex3(100*pos3.x,100*pos3.y,100*pos3.z)
+{}

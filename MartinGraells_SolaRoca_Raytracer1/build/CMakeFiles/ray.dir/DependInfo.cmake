@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/scene.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/scene.cpp.o"
   "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/cylinder.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o"
   "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/example.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/example.cpp.o"
+  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/mesh.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o"
   "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/plane.cpp.o"
   "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/quad.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/quad.cpp.o"
   "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/sphere.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o"

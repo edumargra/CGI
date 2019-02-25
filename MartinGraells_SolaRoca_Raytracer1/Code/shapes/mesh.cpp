@@ -1,10 +1,10 @@
-#include "quad.h"
+#include "mesh.h"
 
 #include <cmath>
 #include <iostream>
 using namespace std;
 
-Hit Quad::intersect(Ray const &ray)
+Hit Mesh::intersect(Ray const &ray)
 {
     /****************************************************
     * RT1.1: INTERSECTION CALCULATION
@@ -23,20 +23,25 @@ Hit Quad::intersect(Ray const &ray)
     ****************************************************/
 
     // place holder for actual intersection calculation
-    
-    Hit hit1 = triangle1.intersect(ray);
-    Hit hit2 = triangle2.intersect(ray);
-    if (!std::isnan(hit1.t)) {
-        if(hit1.t < hit2.t || std::isnan(hit2.t)){
-            return hit1;
+    Hit min_hit = Hit::NO_HIT();
+    for(auto &triangle: triangles){
+        Hit hit = triangle.intersect(ray);
+        if(!std::isnan(hit.t) && (std::isnan(min_hit.t) || hit.t < min_hit.t)){
+            min_hit = hit;
         }
     }
-    if (!std::isnan(hit2.t)) return hit2;
-    return Hit::NO_HIT();
+    if(std::isnan(min_hit.t)) return Hit::NO_HIT();
+    return min_hit;
 }
 
-Quad::Quad(Point const &pos1, Point const &pos2, Point const &pos3, Point const &pos4)
-:
-    triangle1(pos1,pos2,pos4),
-    triangle2(pos2,pos3,pos4)
-{}
+Mesh::Mesh(std::vector<Vertex> const &vertices){
+    uint i;
+    Point p(0,0,0);
+    Triangle* t;
+    for(i = 0; i < vertices.size(); i+=3){
+        cout<< vertices[i].x<<","<<vertices[i].y<<","<<vertices[i].z<<"\n";
+        t = new Triangle(vertices[i],vertices[i+1],vertices[i+2]);
+        triangles.push_back(*t);
+    }
+    
+}

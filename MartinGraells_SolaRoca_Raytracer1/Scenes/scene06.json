@@ -36,13 +36,9 @@
             }
         },
 	{
-            "type": "quad",
+            "type": "mesh",
             "comment": "red quad",
-            "vertex1": [100, 320, 150],
-            "vertex2": [100, 150, 150],
-            "vertex3": [320, 190, 150],
-            "vertex4": [290, 250, 150],
-            
+            "model": "../models/cat.obj",
             "material":
             {
                 "color": [1.0, 0.0, 0.0],
