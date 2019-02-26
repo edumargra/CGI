@@ -71,7 +71,9 @@ bool Raytracer::parseObjectNode(json const &node)
     {
         std::string url = node["model"];
         OBJLoader objLoader(url);
-        obj = ObjectPtr(new Mesh(objLoader.vertex_data()));
+        double scale = node["scale"];
+        Point trans (node["translate"]);
+        obj = ObjectPtr(new Mesh(objLoader.vertex_data(),scale,trans));
     }else{
         cerr << "Unknown object type: " << node["type"] << ".\n";
     }

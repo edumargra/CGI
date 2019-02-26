@@ -8,7 +8,6 @@ class Triangle: public Object
 {
     public:
         Triangle(Point const &pos1, Point const &pos2, Point const &pos3);
-        Triangle(Vertex const &pos1, Vertex const &pos2, Vertex const &pos3);
         virtual Hit intersect(Ray const &ray);
 
         Point const vertex1;
