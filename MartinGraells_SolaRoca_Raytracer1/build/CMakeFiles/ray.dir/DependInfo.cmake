@@ -4,20 +4,19 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/image.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/image.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/lode/lodepng.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/lode/lodepng.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/main.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/main.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/objloader.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/objloader.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/raytracer.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/raytracer.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/scene.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/scene.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/cylinder.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/example.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/example.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/mesh.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/plane.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/quad.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/quad.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/sphere.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/shapes/triangle.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o"
-  "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/Code/triple.cpp" "/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/triple.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/image.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/image.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/lode/lodepng.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/lode/lodepng.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/main.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/main.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/objloader.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/objloader.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/raytracer.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/raytracer.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/scene.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/scene.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/cylinder.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/mesh.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/plane.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/plane.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/quad.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/quad.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/sphere.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/sphere.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/shapes/triangle.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/shapes/triangle.cpp.o"
+  "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/Code/triple.cpp" "/home/s3834549/Desktop/Graphics/MartinGraells_SolaRoca_Raytracer1/build/CMakeFiles/ray.dir/Code/triple.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

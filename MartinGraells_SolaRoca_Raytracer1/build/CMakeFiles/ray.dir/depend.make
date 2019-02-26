@@ -66,15 +66,6 @@ CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/shapes/cylinder.cpp
 CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/shapes/cylinder.h
 CMakeFiles/ray.dir/Code/shapes/cylinder.cpp.o: ../Code/triple.h
 
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/hit.h
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/json/json_fwd.h
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/material.h
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/object.h
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/ray.h
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/shapes/example.cpp
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/shapes/example.h
-CMakeFiles/ray.dir/Code/shapes/example.cpp.o: ../Code/triple.h
-
 CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o: ../Code/hit.h
 CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o: ../Code/json/json_fwd.h
 CMakeFiles/ray.dir/Code/shapes/mesh.cpp.o: ../Code/material.h
