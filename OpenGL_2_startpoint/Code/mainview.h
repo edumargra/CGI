@@ -37,6 +37,10 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     GLint uniformModelViewTransformGouraud;
     GLint uniformProjectionTransformGouraud;
     GLint uniformNormalTransformGouraud;
+    GLint uniformMaterial;
+    GLint uniformLightPosition;
+    GLint uniformLightColor;
+    GLint uniformLightColor2;
 
     // Mesh values
     GLuint meshVAO;
@@ -49,6 +53,10 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     QVector3D rotation;
     QMatrix4x4 projectionTransform;
     QMatrix3x3 normalTransform;
+    std::vector<GLfloat> lightPosition;
+    std::vector<GLfloat> lightColor;
+    std::vector<GLfloat> lightColor2;
+    std::vector<GLfloat> material;
 
 public:
     enum ShadingMode : GLuint
