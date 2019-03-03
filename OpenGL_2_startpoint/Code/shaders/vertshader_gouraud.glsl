@@ -23,12 +23,12 @@ void main()
 {
     // gl_Position is the output (a vec4) of the vertex shader
     gl_Position = projectionTransform * modelViewTransform * vec4(vertCoordinates_in, 1.0);
-    vec3 V = -normalize(vec3(modelViewTransform * vec4(vertCoordinates_in,1.0)));
+    vec3 V = normalize(-vec3(modelViewTransform * vec4(vertCoordinates_in,1.0)));
     vec3 L = normalize(lightCoordinates - vec3(gl_Position));
     vec3 N = normalize(normalTransform * vertNormal_in);
     vec3 R = -reflect(L,N);
     vec3 Ia =  materialColor * material[0];
-    vec3 Id =  materialColor * lightColor * material[1] * dot(N,L);
-    vec3 Is =  lightColor * material[2] * pow(max(0,dot(R,V)),material[3]);
+    vec3 Id =  materialColor * lightColor * material[1] * max(dot(N,L),0.0);
+    vec3 Is =  lightColor * material[2] * pow(max(0.0,dot(R,V)),material[3]);
     vertColor = Ia + Id + Is;
 }

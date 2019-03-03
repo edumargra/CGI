@@ -110,14 +110,18 @@ void MainView::createShaderProgram()
     uniformModelViewTransformPhong = shaderProgramPhong.uniformLocation("modelViewTransform");
     uniformProjectionTransformPhong = shaderProgramPhong.uniformLocation("projectionTransform");
     uniformNormalTransformPhong = shaderProgramPhong.uniformLocation("normalTransform");
+    uniformMaterialPhong = shaderProgramPhong.uniformLocation("material");
+    uniformLightPositionPhong = shaderProgramPhong.uniformLocation("lightPosition");
+    uniformLightColorPhong = shaderProgramPhong.uniformLocation("lightColor");
+    uniformMaterialColorPhong = shaderProgramPhong.uniformLocation("materialColor");
 
     uniformModelViewTransformGouraud = shaderProgramGouraud.uniformLocation("modelViewTransform");
     uniformProjectionTransformGouraud = shaderProgramGouraud.uniformLocation("projectionTransform");
     uniformNormalTransformGouraud = shaderProgramGouraud.uniformLocation("normalTransform");
-    uniformMaterial = shaderProgramGouraud.uniformLocation("material");
-    uniformLightPosition = shaderProgramGouraud.uniformLocation("lightPosition");
-    uniformLightColor = shaderProgramGouraud.uniformLocation("lightColor");
-    uniformMaterialColor = shaderProgramGouraud.uniformLocation("materialColor");
+    uniformMaterialGouraud = shaderProgramGouraud.uniformLocation("material");
+    uniformLightPositionGouraud = shaderProgramGouraud.uniformLocation("lightPosition");
+    uniformLightColorGouraud = shaderProgramGouraud.uniformLocation("lightColor");
+    uniformMaterialColorGouraud = shaderProgramGouraud.uniformLocation("materialColor");
 
     activeShader = &shaderProgramPhong;
 }
@@ -190,14 +194,18 @@ void MainView::paintGL() {
     glUniformMatrix4fv(uniformProjectionTransformPhong, 1, GL_FALSE, projectionTransform.data());
     glUniformMatrix4fv(uniformModelViewTransformPhong, 1, GL_FALSE, meshTransform.data());
     glUniformMatrix3fv(uniformNormalTransformPhong,1,GL_FALSE,normalTransform.data());
+    glUniform3fv(uniformLightPositionPhong,1,lightPosition.data());
+    glUniform3fv(uniformLightColorPhong,1,lightColor.data());
+    glUniform3fv(uniformMaterialColorPhong,1,materialColor.data());
+    glUniform4fv(uniformMaterialPhong,1,material.data());
 
     glUniformMatrix4fv(uniformProjectionTransformGouraud, 1, GL_FALSE, projectionTransform.data());
     glUniformMatrix4fv(uniformModelViewTransformGouraud, 1, GL_FALSE, meshTransform.data());
     glUniformMatrix3fv(uniformNormalTransformGouraud,1,GL_FALSE,normalTransform.data());
-    glUniform3fv(uniformLightPosition,1,lightPosition.data());
-    glUniform3fv(uniformLightColor,1,lightColor.data());
-    glUniform3fv(uniformMaterialColor,1,materialColor.data());
-    glUniform4fv(uniformMaterial,1,material.data());
+    glUniform3fv(uniformLightPositionGouraud,1,lightPosition.data());
+    glUniform3fv(uniformLightColorGouraud,1,lightColor.data());
+    glUniform3fv(uniformMaterialColorGouraud,1,materialColor.data());
+    glUniform4fv(uniformMaterialGouraud,1,material.data());
 
     glBindVertexArray(meshVAO);
     glDrawArrays(GL_TRIANGLES, 0, meshSize);
