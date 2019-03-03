@@ -71,9 +71,10 @@ void MainView::initializeGL() {
     createShaderProgram();
     loadMesh();
 
-    material = {0.5f,0.8f,1.f};
+    material = {0.5f,0.8f,1.f,32.f};
+    lightPosition = {0.0f,0.0f,0.0f};
+    materialColor = {0.66f,0.66f,0.66f};
     lightColor = {1.f,1.f,1.f};
-    lightColor2 = {0.2f,0.2f,0.2f};
 
     // Initialize transformations
     updateProjectionTransform();
@@ -116,7 +117,7 @@ void MainView::createShaderProgram()
     uniformMaterial = shaderProgramGouraud.uniformLocation("material");
     uniformLightPosition = shaderProgramGouraud.uniformLocation("lightPosition");
     uniformLightColor = shaderProgramGouraud.uniformLocation("lightColor");
-    uniformLightColor2 = shaderProgramGouraud.uniformLocation("lightColor2");
+    uniformMaterialColor = shaderProgramGouraud.uniformLocation("materialColor");
 
     activeShader = &shaderProgramPhong;
 }
@@ -195,8 +196,8 @@ void MainView::paintGL() {
     glUniformMatrix3fv(uniformNormalTransformGouraud,1,GL_FALSE,normalTransform.data());
     glUniform3fv(uniformLightPosition,1,lightPosition.data());
     glUniform3fv(uniformLightColor,1,lightColor.data());
-    glUniform3fv(uniformLightColor2,1,lightColor2.data());
-    glUniform3fv(uniformMaterial,1,material.data());
+    glUniform3fv(uniformMaterialColor,1,materialColor.data());
+    glUniform4fv(uniformMaterial,1,material.data());
 
     glBindVertexArray(meshVAO);
     glDrawArrays(GL_TRIANGLES, 0, meshSize);

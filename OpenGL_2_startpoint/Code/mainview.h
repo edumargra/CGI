@@ -40,7 +40,7 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     GLint uniformMaterial;
     GLint uniformLightPosition;
     GLint uniformLightColor;
-    GLint uniformLightColor2;
+    GLint uniformMaterialColor;
 
     // Mesh values
     GLuint meshVAO;
@@ -57,6 +57,8 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     std::vector<GLfloat> lightColor;
     std::vector<GLfloat> lightColor2;
     std::vector<GLfloat> material;
+    std::vector<GLfloat> materialColor;
+
 
 public:
     enum ShadingMode : GLuint
