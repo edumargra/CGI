@@ -20,7 +20,7 @@ out vec4 fColor;
 void main()
 {
     vec3 L = normalize(lightCoordinates - vec3(gl_FragCoord));
-    vec3 N = vertNormal;
+    vec3 N = normalize(vertNormal);
     vec3 R = -reflect(L,N);
     vec3 Ia =  materialColor * material[0];
     vec3 Id =  materialColor * lightColor * material[1] * max(dot(N,L),0);

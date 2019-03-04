@@ -70,9 +70,10 @@ void MainView::initializeGL() {
 
     createShaderProgram();
     loadMesh();
+    loadTexture(":/textures/cat_diff.png",texture);
 
-    material = {0.5f,0.8f,1.f,32.f};
-    lightPosition = {0.0f,0.0f,0.0f};
+    material = {0.5f,0.5f,1.f,5.f};
+    lightPosition = {1.0f,100.0f,1.0f};
     materialColor = {0.66f,0.66f,0.66f};
     lightColor = {1.f,1.f,1.f};
 
@@ -122,8 +123,20 @@ void MainView::createShaderProgram()
     uniformLightPositionGouraud = shaderProgramGouraud.uniformLocation("lightPosition");
     uniformLightColorGouraud = shaderProgramGouraud.uniformLocation("lightColor");
     uniformMaterialColorGouraud = shaderProgramGouraud.uniformLocation("materialColor");
+    uniformSampler2DGouraud = shaderProgramGouraud.uniformLocation("samplerUniform");
 
     activeShader = &shaderProgramPhong;
+}
+void MainView::loadTexture(QString file, GLuint texturePtr){
+    QImage image(file);
+    QVector<quint8> imageVec = imageToBytes(image);
+    glGenTextures(1,&texturePtr);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,image.width(),image.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,imageVec.data());
 }
 
 void MainView::loadMesh()
@@ -131,9 +144,11 @@ void MainView::loadMesh()
     Model model(":/models/cat.obj");
     QVector<QVector3D> vertexCoords = model.getVertices();
     QVector<QVector3D> vertexNormals = model.getNormals();
+    QVector<QVector2D> vertexTexCoords = model.getTextureCoords();
+
 
     QVector<float> meshData;
-    meshData.reserve(2 * 3 * vertexCoords.size());
+    meshData.reserve(2 * 3 * vertexCoords.size() + 2 * vertexCoords.size());
 
     for (int i=0;i < vertexCoords.size();i++)
     {
@@ -143,6 +158,8 @@ void MainView::loadMesh()
         meshData.append(vertexNormals.at(i).x());
         meshData.append(vertexNormals.at(i).y());
         meshData.append(vertexNormals.at(i).z());
+        meshData.append(vertexTexCoords.at(i).x());
+        meshData.append(vertexTexCoords.at(i).y());
     }
 
     meshSize = vertexCoords.size();
@@ -159,12 +176,16 @@ void MainView::loadMesh()
     glBufferData(GL_ARRAY_BUFFER, meshData.size() * sizeof(float), meshData.data(), GL_STATIC_DRAW);
 
     // Set vertex coordinates to location 0
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
     glEnableVertexAttribArray(0);
 
     // Set colour coordinates to location 1
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+
+    // Set colour coordinates to location 1
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -206,6 +227,11 @@ void MainView::paintGL() {
     glUniform3fv(uniformLightColorGouraud,1,lightColor.data());
     glUniform3fv(uniformMaterialColorGouraud,1,materialColor.data());
     glUniform4fv(uniformMaterialGouraud,1,material.data());
+
+    glUniform1i(uniformSampler2DGouraud,0);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,texture);
 
     glBindVertexArray(meshVAO);
     glDrawArrays(GL_TRIANGLES, 0, meshSize);

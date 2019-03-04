@@ -45,7 +45,7 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     GLint uniformLightPositionGouraud;
     GLint uniformLightColorGouraud;
     GLint uniformMaterialColorGouraud;
-
+    GLint uniformSampler2DGouraud;
 
     // Mesh values
     GLuint meshVAO;
@@ -64,6 +64,9 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     std::vector<GLfloat> material;
     std::vector<GLfloat> materialColor;
 
+    //Texture
+    GLuint texture;
+
 
 public:
     enum ShadingMode : GLuint
@@ -78,6 +81,7 @@ public:
     void setRotation(int rotateX, int rotateY, int rotateZ);
     void setScale(int scale);
     void setShadingMode(ShadingMode shading);
+    QVector<quint8> imageToBytes(QImage image);
 
 protected:
     void initializeGL();
@@ -101,6 +105,7 @@ private slots:
 private:
     void createShaderProgram();
     void loadMesh();
+    void loadTexture(QString file, GLuint texturePtr);
 
     void destroyModelBuffers();
 
