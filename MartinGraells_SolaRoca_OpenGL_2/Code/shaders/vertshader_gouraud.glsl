@@ -15,23 +15,26 @@ uniform mat3 normalTransform;
 uniform vec4 material;
 uniform vec3 lightCoordinates;
 uniform vec3 lightColor;
-uniform vec3 materialColor;
 
 // Specify the output of the vertex stage
-out vec3 vertColor;
+out float ka;
+out vec3 Id;
+out vec3 Is;
 out vec2 vertTexCoord;
 
 void main()
 {
     // gl_Position is the output (a vec4) of the vertex shader
     gl_Position = projectionTransform * modelViewTransform * vec4(vertCoordinates_in, 1.0);
-    vec3 V = normalize(-vec3(modelViewTransform * vec4(vertCoordinates_in,1.0)));
-    vec3 L = normalize(vec3(modelViewTransform * vec4(lightCoordinates-vertCoordinates_in,1.0)));
-    vec3 N = normalize(normalTransform * vertNormal_in);
-    vec3 R = -reflect(L,N);
-    vec3 Ia =  materialColor * material[0];
-    vec3 Id =  materialColor * lightColor * material[1] * max(dot(N,L),0.0);
-    vec3 Is =  materialColor*lightColor * material[2] * pow(max(0.0,dot(R,V)),material[3]);
-    vertColor = Ia + Id + Is;
+    //Texture
     vertTexCoord = vertTexCoord_in;
+    //Light components computation
+    ka = material.x;
+    vec3 L = normalize(vec3(modelViewTransform*vec4(lightCoordinates,1.0) - modelViewTransform*vec4(vertCoordinates_in,1.0)));//fixed with is
+    vec3 N = normalize(normalTransform * vertNormal_in);
+    vec3 V = -normalize(vec3(modelViewTransform * vec4(vertCoordinates_in, 1.0)));
+    vec3 R = -reflect(L,N);
+    vec3 e = (dot(L,N) > 0.0 ? dot(L,N) : 0.0);
+    Id = lightColor * material.y * e;
+    Is = lightColor * material.z * pow(max(dot(R,V),0.0),material.w);
 }

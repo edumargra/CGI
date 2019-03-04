@@ -72,8 +72,8 @@ void MainView::initializeGL() {
     loadMesh();
     loadTexture(":/textures/cat_diff.png",texture);
 
-    material = {0.5f,0.5f,1.f,5.f};
-    lightPosition = {1.0f,100.0f,1.0f};
+    material = {0.2f,0.5f,1.f,5.f};
+    lightPosition = {1.0f,1.0f,1.0f};
     materialColor = {0.66f,0.66f,0.66f};
     lightColor = {1.f,1.f,1.f};
 
@@ -264,7 +264,7 @@ void MainView::updateProjectionTransform()
 void MainView::updateModelTransforms()
 {
     meshTransform.setToIdentity();
-    meshTransform.translate(0, -0.5, -1);
+    meshTransform.translate(0, 0, -10);
     meshTransform.scale(scale);
     meshTransform.rotate(QQuaternion::fromEulerAngles(rotation));
 
@@ -294,7 +294,7 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 
 void MainView::setScale(int newScale)
 {
-    scale = static_cast<float>(newScale) / 100.f;
+    scale = static_cast<float>(newScale) / 25.f;
     updateModelTransforms();
 }
 
