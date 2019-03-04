@@ -37,6 +37,7 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     GLint uniformLightPositionPhong;
     GLint uniformLightColorPhong;
     GLint uniformMaterialColorPhong;
+    GLint uniformSampler2DPhong;
 
     GLint uniformModelViewTransformGouraud;
     GLint uniformProjectionTransformGouraud;
@@ -60,7 +61,6 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     QMatrix3x3 normalTransform;
     std::vector<GLfloat> lightPosition;
     std::vector<GLfloat> lightColor;
-    std::vector<GLfloat> lightColor2;
     std::vector<GLfloat> material;
     std::vector<GLfloat> materialColor;
 

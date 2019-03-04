@@ -72,8 +72,8 @@ void MainView::initializeGL() {
     loadMesh();
     loadTexture(":/textures/cat_diff.png",texture);
 
-    material = {0.2f,0.5f,1.f,5.f};
-    lightPosition = {1.0f,1.0f,1.0f};
+    material = {0.5f,0.5f,1.f,5.f};
+    lightPosition = {1.0f,100.0f,2.0f};
     materialColor = {0.66f,0.66f,0.66f};
     lightColor = {1.f,1.f,1.f};
 
@@ -115,6 +115,7 @@ void MainView::createShaderProgram()
     uniformLightPositionPhong = shaderProgramPhong.uniformLocation("lightPosition");
     uniformLightColorPhong = shaderProgramPhong.uniformLocation("lightColor");
     uniformMaterialColorPhong = shaderProgramPhong.uniformLocation("materialColor");
+    uniformSampler2DPhong = shaderProgramGouraud.uniformLocation("samplerUniform");
 
     uniformModelViewTransformGouraud = shaderProgramGouraud.uniformLocation("modelViewTransform");
     uniformProjectionTransformGouraud = shaderProgramGouraud.uniformLocation("projectionTransform");
@@ -204,7 +205,6 @@ void MainView::paintGL() {
     // Clear the screen before rendering
     glClearColor(0.2f, 0.5f, 0.7f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     activeShader->bind();
 
     // Set the projection matrix
@@ -229,6 +229,7 @@ void MainView::paintGL() {
     glUniform4fv(uniformMaterialGouraud,1,material.data());
 
     glUniform1i(uniformSampler2DGouraud,0);
+    glUniform1i(uniformSampler2DPhong,0);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,texture);
@@ -264,7 +265,7 @@ void MainView::updateProjectionTransform()
 void MainView::updateModelTransforms()
 {
     meshTransform.setToIdentity();
-    meshTransform.translate(0, 0, -10);
+    meshTransform.translate(0, -0.5, -1);
     meshTransform.scale(scale);
     meshTransform.rotate(QQuaternion::fromEulerAngles(rotation));
 
@@ -294,7 +295,7 @@ void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 
 void MainView::setScale(int newScale)
 {
-    scale = static_cast<float>(newScale) / 25.f;
+    scale = static_cast<float>(newScale) / 100.f;
     updateModelTransforms();
 }
 
