@@ -73,7 +73,7 @@ void MainView::initializeGL() {
     loadTexture(":/textures/cat_diff.png",texture);
 
     material = {0.5f,0.5f,1.f,5.f};
-    lightPosition = {100.0f,100.0f,100.0f};
+    lightPosition = {1.0f,100.0f,1.0f};
     materialColor = {0.66f,0.66f,0.66f};
     lightColor = {1.f,1.f,1.f};
 
@@ -112,7 +112,7 @@ void MainView::createShaderProgram()
     uniformProjectionTransformPhong = shaderProgramPhong.uniformLocation("projectionTransform");
     uniformNormalTransformPhong = shaderProgramPhong.uniformLocation("normalTransform");
     uniformMaterialPhong = shaderProgramPhong.uniformLocation("material");
-    uniformLightPositionPhong = shaderProgramPhong.uniformLocation("lightPosition");
+    uniformLightPositionPhong = shaderProgramPhong.uniformLocation("lightCoordinates");
     uniformLightColorPhong = shaderProgramPhong.uniformLocation("lightColor");
     uniformMaterialColorPhong = shaderProgramPhong.uniformLocation("materialColor");
     uniformSampler2DPhong = shaderProgramPhong.uniformLocation("samplerUniform");
@@ -121,7 +121,7 @@ void MainView::createShaderProgram()
     uniformProjectionTransformGouraud = shaderProgramGouraud.uniformLocation("projectionTransform");
     uniformNormalTransformGouraud = shaderProgramGouraud.uniformLocation("normalTransform");
     uniformMaterialGouraud = shaderProgramGouraud.uniformLocation("material");
-    uniformLightPositionGouraud = shaderProgramGouraud.uniformLocation("lightPosition");
+    uniformLightPositionGouraud = shaderProgramGouraud.uniformLocation("lightCoordinates");
     uniformLightColorGouraud = shaderProgramGouraud.uniformLocation("lightColor");
     uniformMaterialColorGouraud = shaderProgramGouraud.uniformLocation("materialColor");
     uniformSampler2DGouraud = shaderProgramGouraud.uniformLocation("samplerUniform");

@@ -31,5 +31,5 @@ void main()
     vec3 Ia = vec3(material.x);
     vec3 Id = lightColor * material.y * max(dot(L,N),0.0);
     vec3 Is = lightColor * material.z * pow(max(dot(R,V),0.0), material.w);
-    fColor = texture2D(samplerUniform,textureCoord)*vec4(Ia + Id + Is,1.0);
+    fColor = texture2D(samplerUniform,textureCoord)*vec4((Ia + Id + Is),1.0);
 }
