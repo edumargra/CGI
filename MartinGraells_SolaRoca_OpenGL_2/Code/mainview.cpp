@@ -73,7 +73,7 @@ void MainView::initializeGL() {
     loadTexture(":/textures/cat_diff.png",texture);
 
     material = {0.5f,0.5f,1.f,5.f};
-    lightPosition = {1.0f,100.0f,2.0f};
+    lightPosition = {100.0f,100.0f,100.0f};
     materialColor = {0.66f,0.66f,0.66f};
     lightColor = {1.f,1.f,1.f};
 
@@ -115,7 +115,7 @@ void MainView::createShaderProgram()
     uniformLightPositionPhong = shaderProgramPhong.uniformLocation("lightPosition");
     uniformLightColorPhong = shaderProgramPhong.uniformLocation("lightColor");
     uniformMaterialColorPhong = shaderProgramPhong.uniformLocation("materialColor");
-    uniformSampler2DPhong = shaderProgramGouraud.uniformLocation("samplerUniform");
+    uniformSampler2DPhong = shaderProgramPhong.uniformLocation("samplerUniform");
 
     uniformModelViewTransformGouraud = shaderProgramGouraud.uniformLocation("modelViewTransform");
     uniformProjectionTransformGouraud = shaderProgramGouraud.uniformLocation("projectionTransform");
@@ -268,6 +268,7 @@ void MainView::updateModelTransforms()
     meshTransform.translate(0, -0.5, -1);
     meshTransform.scale(scale);
     meshTransform.rotate(QQuaternion::fromEulerAngles(rotation));
+
 
     updateNormalTransform();
     update();
