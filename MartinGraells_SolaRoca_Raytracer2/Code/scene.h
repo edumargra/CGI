@@ -26,6 +26,8 @@ class Scene
         void render(Image &img);
 
         void setShadows();
+        void setMaxRecursionDepth(int depth);
+        
         void addObject(ObjectPtr obj);
         void addLight(Light const &light);
         void setEye(Triple const &position);
@@ -36,6 +38,7 @@ class Scene
     private:
         Vector vectorReflect(Vector v,Vector N);
         bool shadows = false;
+        int maxRecursionDepth = 0;
 };
 
 #endif

@@ -97,7 +97,7 @@ void Scene::render(Image &img)
         {
             Point pixel(x + 0.5, h - 1 - y + 0.5, 0);
             Ray ray(eye, (pixel - eye).normalized());
-            Color col = trace(ray,shadows);
+            Color col = trace(ray,shadows,maxRecursionDepth);
             col.clamp();
             img(x, y) = col;
         }
@@ -106,6 +106,10 @@ void Scene::render(Image &img)
 
 void Scene::setShadows(){
     shadows = true;
+}
+
+void Scene::setMaxRecursionDepth(int depth){
+    maxRecursionDepth = depth;
 }
 
 //Returns the reflection of v with respect to N, normalized

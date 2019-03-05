@@ -133,10 +133,13 @@ try
     for (auto const &objectNode : jsonscene["Objects"])
         if (parseObjectNode(objectNode))
             ++objCount;
+        
     if(jsonscene["Shadows"] == true)
-    {
         scene.setShadows();
-    }
+    
+    if(jsonscene["MaxRecursionDepth"] != nullptr)
+        scene.setMaxRecursionDepth(jsonscene["MaxRecursionDepth"]);
+    
     
     cout << "Parsed " << objCount << " objects.\n";
 
