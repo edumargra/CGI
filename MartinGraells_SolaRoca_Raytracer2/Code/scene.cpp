@@ -54,9 +54,9 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
     
     Color Ia = material.color*material.ka;
     Color Id(0.0,0.0,0.0) ;Color Is(0.0,0.0,0.0) ; 
-    Color reflectedColor(0.0,0.0,0.0);
     bool blocked = false; //by default there are no shadows
     uint i;
+    Color reflectedColor(0.0,0.0,0.0);
     for(i=0; i < lights.size(); i++){ 
         Vector L = (lights[i]->position - hit).normalized();
         if(shadows){ 
@@ -74,11 +74,13 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
         }
         if(!blocked){
             Vector R = vectorReflect(L,N);
-            if(reflection>0 && reflection <4) {
-               reflectedColor += trace(Ray(hit,vectorReflect(ray.D,N)),false,reflection+1);
+            Ray r(hit + 0.1*vectorReflect(V,N) ,vectorReflect(V,N));
+            if(reflection>0 && material.ks > 0) {
+               reflectedColor = trace(r,true,reflection-1);
+               //printf("reflectedColor: (%f,%f,%f), reflection step: %i \n",reflectedColor.r,reflectedColor.g,reflectedColor.b,reflection);
             }
             Id += material.color*lights[i]->color*material.kd*max(0.0,L.dot(N));
-            Is += pow(max(0.0,R.dot(V)),material.n)*material.ks*lights[i]->color;  
+            Is += pow(max(0.0,R.dot(V)),material.n)*material.ks*lights[i]->color; 
         }
     }
     Color color = Id + Is + Ia + material.ks*reflectedColor;
