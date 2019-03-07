@@ -22,7 +22,7 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
         {
             min_hit = hit;
             obj = objects[idx];
-        } 
+        }
     }
 
     // No hit? Return background color.
@@ -50,16 +50,16 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
     *        Color * Color      dito
     *        pow(a,b)           a to the power of b
     ****************************************************/
-    
-    
+
+
     Color Ia = material.color*material.ka;
-    Color Id(0.0,0.0,0.0) ;Color Is(0.0,0.0,0.0) ; 
+    Color Id(0.0,0.0,0.0) ;Color Is(0.0,0.0,0.0) ;
     bool blocked = false; //by default there are no shadows
     uint i;
     Color reflectedColor(0.0,0.0,0.0);
-    for(i=0; i < lights.size(); i++){ 
+    for(i=0; i < lights.size(); i++){
         Vector L = (lights[i]->position - hit).normalized();
-        if(shadows){ 
+        if(shadows){
             blocked = false; //we clean the previous value to false
             Ray lightRay(lights[i]->position,-L);
             Hit min_hit(obj->intersect(lightRay));
@@ -80,7 +80,7 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
                //printf("reflectedColor: (%f,%f,%f), reflection step: %i \n",reflectedColor.r,reflectedColor.g,reflectedColor.b,reflection);
             }
             Id += material.color*lights[i]->color*material.kd*max(0.0,L.dot(N));
-            Is += pow(max(0.0,R.dot(V)),material.n)*material.ks*lights[i]->color; 
+            Is += pow(max(0.0,R.dot(V)),material.n)*material.ks*lights[i]->color;
         }
     }
     Color color = Id + Is + Ia + material.ks*reflectedColor;
@@ -93,15 +93,22 @@ void Scene::render(Image &img)
 {
     unsigned w = img.width();
     unsigned h = img.height();
+    float factor = 1.f /(superSamplingFactor+1); //space between rays
     for (unsigned y = 0; y < h; ++y)
     {
         for (unsigned x = 0; x < w; ++x)
         {
-            Point pixel(x + 0.5, h - 1 - y + 0.5, 0);
-            Ray ray(eye, (pixel - eye).normalized());
-            Color col = trace(ray,shadows,maxRecursionDepth);
-            col.clamp();
-            img(x, y) = col;
+          Color col(0.0,0.0,0.0);
+          for(unsigned k = 1; k <= superSamplingFactor; k++){
+            for(unsigned g = 1; g <= superSamplingFactor; g++){
+              Point pixel(x + g*factor, h - 1 - y + k*factor, 0);
+              Ray ray(eye, (pixel - eye).normalized());
+              col += trace(ray,shadows,maxRecursionDepth);
+            }
+          }
+          col = col/(superSamplingFactor*2); //average of the rays for one pixel
+          col.clamp();
+          img(x, y) = col;
         }
     }
 }
@@ -112,6 +119,10 @@ void Scene::setShadows(){
 
 void Scene::setMaxRecursionDepth(int depth){
     maxRecursionDepth = depth;
+}
+
+void Scene::setSuperSamplingFactor(int factor){
+    superSamplingFactor = factor/2; //same number of rays in each direction
 }
 
 //Returns the reflection of v with respect to N, normalized

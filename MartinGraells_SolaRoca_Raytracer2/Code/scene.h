@@ -27,18 +27,20 @@ class Scene
 
         void setShadows();
         void setMaxRecursionDepth(int depth);
-        
+        void setSuperSamplingFactor(int factor);
+
         void addObject(ObjectPtr obj);
         void addLight(Light const &light);
         void setEye(Triple const &position);
 
         unsigned getNumObject();
         unsigned getNumLights();
-        
+
     private:
         Vector vectorReflect(Vector v,Vector N);
         bool shadows = false;
         int maxRecursionDepth = 0;
+        int superSamplingFactor = 1;
 };
 
 #endif
