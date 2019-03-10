@@ -32,6 +32,12 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
     Point hit = ray.at(min_hit.t);                 //the hit point
     Vector N = min_hit.N;                          //the normal at hit point
     Vector V = -ray.D;                             //the view vector
+    Color materialColor = material.color;
+    if(material.texture != string("")){
+      Image texture(string("../Scenes/") + material.texture); //texture
+      vector<float> UVcoord = obj->UVcoord(hit); //coord in UV space of the hit point
+      materialColor = texture.colorAt(UVcoord.at(0),UVcoord.at(1)); //color of texture at UV
+    }
 
     /****************************************************
     * This is where you should insert the color
@@ -52,7 +58,7 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
     ****************************************************/
 
 
-    Color Ia = material.color*material.ka;
+    Color Ia = materialColor*material.ka;
     Color Id(0.0,0.0,0.0) ;Color Is(0.0,0.0,0.0) ;
     bool blocked = false; //by default there are no shadows
     uint i;
@@ -79,7 +85,7 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
                reflectedColor = trace(r,true,reflection-1);
                //printf("reflectedColor: (%f,%f,%f), reflection step: %i \n",reflectedColor.r,reflectedColor.g,reflectedColor.b,reflection);
             }
-            Id += material.color*lights[i]->color*material.kd*max(0.0,L.dot(N));
+            Id += materialColor*lights[i]->color*material.kd*max(0.0,L.dot(N));
             Is += pow(max(0.0,R.dot(V)),material.n)*material.ks*lights[i]->color;
         }
     }

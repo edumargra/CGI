@@ -39,6 +39,15 @@ Hit Sphere::intersect(Ray const &ray)
     return Hit(t0, N);
 }
 
+vector<float> Sphere::UVcoord(Vector v){
+  vector<float> newCoord;
+  float zeta = acos((v.z - position.z)/r);
+  float sigma = atan2(v.y - position.y, v.x - position.x);
+  if(sigma < 0) sigma += 2*M_PI; //our space for u is between 0 and 1
+  newCoord.push_back(sigma/2*M_PI); //u
+  newCoord.push_back((M_PI - zeta)/M_PI); //v
+}
+
 Sphere::Sphere(Point const &pos, double radius)
 :
     position(pos),

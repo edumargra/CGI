@@ -30,6 +30,11 @@ Hit Mesh::intersect(Ray const &ray)
     return min_hit;
 }
 
+vector<float> Mesh::UVcoord(Vector v){
+  vector<float> newCoord = {0,0};
+  return newCoord;
+}
+
 Mesh::Mesh(vector<Vertex> const &vertices,double const &scale, Point const &translate){
     uint i;
     Point p1,p2,p3;
@@ -41,5 +46,5 @@ Mesh::Mesh(vector<Vertex> const &vertices,double const &scale, Point const &tran
         t = new Triangle(p1,p2,p3);
         triangles.push_back(*t);
     }
-    
+
 }

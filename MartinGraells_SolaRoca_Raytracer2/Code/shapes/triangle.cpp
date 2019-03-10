@@ -37,6 +37,11 @@ Hit Triangle::intersect(Ray const &ray)
     return Hit(t, normal);
 }
 
+std::vector<float> Triangle::UVcoord(Vector v){
+  std::vector<float> newCoord = {0,0};
+  return newCoord;
+}
+
 Triangle::Triangle(Point const &v0,
          Point const &v1,
          Point const &v2)

@@ -23,7 +23,7 @@ Hit Quad::intersect(Ray const &ray)
     ****************************************************/
 
     // place holder for actual intersection calculation
-    
+
     Hit hit1 = triangle1.intersect(ray);
     Hit hit2 = triangle2.intersect(ray);
     if (!std::isnan(hit1.t)) {
@@ -33,6 +33,11 @@ Hit Quad::intersect(Ray const &ray)
     }
     if (!std::isnan(hit2.t)) return hit2;
     return Hit::NO_HIT();
+}
+
+vector<float> Quad::UVcoord(Vector v){
+  vector<float> newCoord = {0,0};
+  return newCoord;
 }
 
 Quad::Quad(Point const &pos1, Point const &pos2, Point const &pos3, Point const &pos4)

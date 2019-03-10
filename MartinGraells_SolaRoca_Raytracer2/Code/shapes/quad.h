@@ -9,7 +9,8 @@ class Quad: public Object
         Quad(Point const &pos1, Point const &pos2, Point const &pos3, Point const &pos4);
 
         virtual Hit intersect(Ray const &ray);
-
+        virtual std::vector<float> UVcoord(Vector v);
+        
         Triangle triangle1;
         Triangle triangle2;
 };

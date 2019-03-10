@@ -11,6 +11,7 @@ class Mesh: public Object
         Mesh(std::vector<Vertex> const &vertices,double const &scale, Point const &translate);
 
         virtual Hit intersect(Ray const &ray);
+        virtual std::vector<float> UVcoord(Vector v);
 
         std::vector<Triangle> triangles;
 };

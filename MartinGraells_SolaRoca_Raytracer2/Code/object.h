@@ -16,11 +16,10 @@ class Object
 {
     public:
         Material material;
-
         virtual ~Object() = default;
 
-        virtual Hit intersect(Ray const &ray) = 0;  // must be implemented
-                                                    // in derived class
+        virtual Hit intersect(Ray const &ray) = 0;
+        virtual std::vector<float> UVcoord(Vector v) = 0; //from a coord space, return the UV coord
 };
 
 #endif

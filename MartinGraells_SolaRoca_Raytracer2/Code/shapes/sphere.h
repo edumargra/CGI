@@ -9,7 +9,7 @@ class Sphere: public Object
         Sphere(Point const &pos, double radius);
 
         virtual Hit intersect(Ray const &ray);
-
+        virtual std::vector<float> UVcoord(Vector v);
         Point const position;
         double const r;
 };

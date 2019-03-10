@@ -100,12 +100,18 @@ Light Raytracer::parseLightNode(json const &node) const
 
 Material Raytracer::parseMaterialNode(json const &node) const
 {
-    Color color(node["color"]);
-    double ka = node["ka"];
-    double kd = node["kd"];
-    double ks = node["ks"];
-    double n  = node["n"];
-    return Material(color, ka, kd, ks, n);
+  cout << "lmaoing";
+  double ka = node["ka"];
+  double kd = node["kd"];
+  double ks = node["ks"];
+  double n  = node["n"];
+  if(node["texture"] != nullptr){//if the object is given with a texture
+    cout << "lmao";
+    string url = node["texture"];
+    return Material(url, ka, kd, ks, n);
+  }
+  Color color(node["color"]);
+  return Material(color, ka, kd, ks, n);
 }
 
 bool Raytracer::readScene(string const &ifname)

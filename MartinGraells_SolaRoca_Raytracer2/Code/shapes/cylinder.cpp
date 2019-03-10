@@ -34,13 +34,13 @@ Hit Cylinder::intersect(Ray const &ray)
     if ( tca < 0) {
         return Hit::NO_HIT();
     }
-    
+
     float d2 = OC.dot(OC) - pow(tca,2);
     if (d2 > pow(r,2)) return Hit::NO_HIT();
     float thc = sqrt(pow(r,2) - d2);
     float t0 = tca - thc;
-    float t1 = tca + thc; 
-    
+    float t1 = tca + thc;
+
     if (t0 > t1) std::swap(t0, t1);
 
     if (t0 < 0) {
@@ -48,7 +48,7 @@ Hit Cylinder::intersect(Ray const &ray)
         if (t0 < 0) return Hit::NO_HIT(); // both t0 and t1 are negative
     }
 
-    float t = t0; 
+    float t = t0;
     /****************************************************
     * RT1.2: NORMAL CALCULATION
     *
@@ -65,10 +65,15 @@ Hit Cylinder::intersect(Ray const &ray)
     return Hit(t,N);
 }
 
+vector<float> Cylinder::UVcoord(Vector v){
+  vector<float> newCoord = {0,0};
+  return newCoord;
+}
+
 Cylinder::Cylinder(Point const &pos1,Point const &pos2,double radius)
 :
     initial(pos1),
     end(pos2),
     r(radius)
-    
+
 {}

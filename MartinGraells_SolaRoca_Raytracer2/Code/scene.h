@@ -40,7 +40,7 @@ class Scene
         Vector vectorReflect(Vector v,Vector N);
         bool shadows = false;
         int maxRecursionDepth = 0;
-        int superSamplingFactor = 1;
+        unsigned superSamplingFactor = 1;
 };
 
 #endif
