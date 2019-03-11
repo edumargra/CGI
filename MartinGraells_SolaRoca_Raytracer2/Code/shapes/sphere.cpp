@@ -2,6 +2,7 @@
 #include "solvers.h"
 
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
@@ -40,12 +41,16 @@ Hit Sphere::intersect(Ray const &ray)
 }
 
 vector<float> Sphere::UVcoord(Vector v){
+  cout << "Previous:    " << v.x << "," << v.y<< ","  << v.z << "\n";
+  v = applyRotationMatrix(v); 
+  cout << v.x << "," << v.y<< ","  << v.z << "\n";
   vector<float> newCoord;
   float zeta = acos((v.z - position.z)/r);
   float sigma = atan2(v.y - position.y, v.x - position.x);
   if(sigma < 0) sigma += 2*M_PI; //our space for u is between 0 and 1
-  newCoord.push_back(sigma/2*M_PI); //u
+  newCoord.push_back(sigma/(2*M_PI)); //u
   newCoord.push_back((M_PI - zeta)/M_PI); //v
+  return newCoord;
 }
 
 Sphere::Sphere(Point const &pos, double radius)
@@ -53,3 +58,15 @@ Sphere::Sphere(Point const &pos, double radius)
     position(pos),
     r(radius)
 {}
+
+Sphere::Sphere(Point const &pos, double radius,double angle, Vector const &axis)
+:
+    position(pos),
+    r(radius),
+    angle(angle*M_PI/180),
+    axis(axis.normalized())
+{}
+
+Vector Sphere::applyRotationMatrix(Vector v){
+    return v*cos(angle) + axis.cross(v)*sin(angle) + axis*v.dot(axis)*(1-cos(angle));
+}

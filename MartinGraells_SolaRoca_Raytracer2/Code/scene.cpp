@@ -1,12 +1,13 @@
 #include "scene.h"
 
 #include "hit.h"
-#include "image.h"
 #include "material.h"
 #include "ray.h"
 
 #include <cmath>
 #include <limits>
+#include <iostream>
+
 
 using namespace std;
 
@@ -34,11 +35,15 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
     Vector V = -ray.D;                             //the view vector
     Color materialColor = material.color;
     if(material.texture != string("")){
-      Image texture(string("../Scenes/") + material.texture); //texture
+      if(!textures.count(material.texture)){
+        Image texture(string("../Scenes/") + material.texture); //texture
+        textures[material.texture] = texture;
+      }
+      Image texture = textures[material.texture];
       vector<float> UVcoord = obj->UVcoord(hit); //coord in UV space of the hit point
       materialColor = texture.colorAt(UVcoord.at(0),UVcoord.at(1)); //color of texture at UV
     }
-
+    
     /****************************************************
     * This is where you should insert the color
     * calculation (Phong model).

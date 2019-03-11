@@ -40,7 +40,10 @@ bool Raytracer::parseObjectNode(json const &node)
     {
         Point pos(node["position"]);
         double radius = node["radius"];
-        obj = ObjectPtr(new Sphere(pos, radius));
+        double angle = node["angle"];
+        Vector axis(node["rotation"]);
+        if(!angle) obj = ObjectPtr(new Sphere(pos, radius));
+        else obj = ObjectPtr(new Sphere(pos,radius,angle,axis));
     }
     else if(node["type"] == "triangle")
     {
@@ -100,13 +103,12 @@ Light Raytracer::parseLightNode(json const &node) const
 
 Material Raytracer::parseMaterialNode(json const &node) const
 {
-  cout << "lmaoing";
   double ka = node["ka"];
   double kd = node["kd"];
   double ks = node["ks"];
   double n  = node["n"];
+  cout << node["ka"] << "," << node["kd"] << "," << node["ks"] << "," << node["n"] << "\n";
   if(node["texture"] != nullptr){//if the object is given with a texture
-    cout << "lmao";
     string url = node["texture"];
     return Material(url, ka, kd, ks, n);
   }

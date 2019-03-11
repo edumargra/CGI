@@ -4,6 +4,8 @@
 #include "light.h"
 #include "object.h"
 #include "triple.h"
+#include "image.h"
+
 
 #include <vector>
 
@@ -16,6 +18,7 @@ class Scene
     std::vector<ObjectPtr> objects;
     std::vector<LightPtr> lights;   // no ptr needed, but kept for consistency
     Point eye;
+    std::map<std::string,Image> textures; //array of textures to onl load once per object
 
     public:
 
