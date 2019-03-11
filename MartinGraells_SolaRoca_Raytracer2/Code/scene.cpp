@@ -39,7 +39,7 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
         Image texture(string("../Scenes/") + material.texture); //texture
         textures[material.texture] = texture;
       }
-      Image texture = textures[material.texture];
+      Image const &texture = textures[material.texture];
       vector<float> UVcoord = obj->UVcoord(hit); //coord in UV space of the hit point
       materialColor = texture.colorAt(UVcoord.at(0),UVcoord.at(1)); //color of texture at UV
     }
