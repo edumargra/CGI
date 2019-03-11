@@ -372,6 +372,22 @@ string
 json/json_fwd.h
 /home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/json/json_fwd.h
 
+/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/scene.cpp
+scene.h
+/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/scene.h
+hit.h
+/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/hit.h
+material.h
+/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/material.h
+ray.h
+/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/ray.h
+cmath
+-
+limits
+-
+iostream
+-
+
 /home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/scene.h
 light.h
 /home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/light.h
@@ -405,18 +421,6 @@ triangle.h
 /home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/object.h
 triangle.h
 /home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/shapes/triangle.h
-
-/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/shapes/solvers.h
-
-/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/shapes/sphere.cpp
-sphere.h
-/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/shapes/sphere.h
-solvers.h
-/home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/shapes/solvers.h
-cmath
--
-iostream
--
 
 /home/frost/Baixades/uni/computerGraphics/CGI/MartinGraells_SolaRoca_Raytracer2/Code/shapes/sphere.h
 ../object.h

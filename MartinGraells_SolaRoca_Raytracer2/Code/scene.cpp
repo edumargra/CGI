@@ -43,7 +43,7 @@ Color Scene::trace(Ray const &ray, bool shadows,int reflection)
       vector<float> UVcoord = obj->UVcoord(hit); //coord in UV space of the hit point
       materialColor = texture.colorAt(UVcoord.at(0),UVcoord.at(1)); //color of texture at UV
     }
-    
+
     /****************************************************
     * This is where you should insert the color
     * calculation (Phong model).
@@ -117,7 +117,7 @@ void Scene::render(Image &img)
               col += trace(ray,shadows,maxRecursionDepth);
             }
           }
-          col = col/(superSamplingFactor*2); //average of the rays for one pixel
+          col = col/(pow(superSamplingFactor,2)); //average of the rays for one pixel
           col.clamp();
           img(x, y) = col;
         }
@@ -133,7 +133,7 @@ void Scene::setMaxRecursionDepth(int depth){
 }
 
 void Scene::setSuperSamplingFactor(int factor){
-    superSamplingFactor = factor/2; //same number of rays in each direction
+    superSamplingFactor = sqrt(factor); //same number of rays in each direction
 }
 
 //Returns the reflection of v with respect to N, normalized

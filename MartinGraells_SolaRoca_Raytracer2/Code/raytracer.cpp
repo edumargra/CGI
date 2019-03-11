@@ -40,10 +40,13 @@ bool Raytracer::parseObjectNode(json const &node)
     {
         Point pos(node["position"]);
         double radius = node["radius"];
-        double angle = node["angle"];
-        Vector axis(node["rotation"]);
-        if(!angle) obj = ObjectPtr(new Sphere(pos, radius));
-        else obj = ObjectPtr(new Sphere(pos,radius,angle,axis));
+        if(node.find("angle") != node.end()){ //rotation on the sphere
+          double angle = node["angle"]; //we expect that if an angle is given so is the axis
+          Vector axis(node["rotation"]);
+          obj = ObjectPtr(new Sphere(pos,radius,angle,axis));
+        }else{
+          obj = ObjectPtr(new Sphere(pos, radius));
+        }
     }
     else if(node["type"] == "triangle")
     {
@@ -107,8 +110,7 @@ Material Raytracer::parseMaterialNode(json const &node) const
   double kd = node["kd"];
   double ks = node["ks"];
   double n  = node["n"];
-  cout << node["ka"] << "," << node["kd"] << "," << node["ks"] << "," << node["n"] << "\n";
-  if(node["texture"] != nullptr){//if the object is given with a texture
+  if(node.find("texture") != node.end()){//if the object is given with a texture
     string url = node["texture"];
     return Material(url, ka, kd, ks, n);
   }
@@ -146,7 +148,7 @@ try
         scene.setShadows();
     if(jsonscene["MaxRecursionDepth"] != nullptr)
         scene.setMaxRecursionDepth(jsonscene["MaxRecursionDepth"]);
-    if(jsonscene["SuperSamplingFactor"] != nullptr)
+    if(jsonscene.find("SuperSamplingFactor") != jsonscene.end())
         scene.setSuperSamplingFactor(jsonscene["SuperSamplingFactor"]);
 
 
