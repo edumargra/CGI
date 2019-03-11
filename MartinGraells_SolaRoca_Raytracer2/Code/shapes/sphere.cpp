@@ -40,15 +40,14 @@ Hit Sphere::intersect(Ray const &ray)
     return Hit(t0, N);
 }
 
-vector<float> Sphere::UVcoord(Vector v){
-  cout << "Previous:    " << v.x << "," << v.y<< ","  << v.z << "\n";
-  v = applyRotationMatrix(v); 
-  cout << v.x << "," << v.y<< ","  << v.z << "\n";
+vector<float> Sphere::UVcoord(Vector v){ //v is initially a point in space coord
+  v = v - position; //v is now the vector from the center of the sphere to the point passsed as a parameter
+  v = applyRotation(v); //we rotate the sphere (only the texture)
   vector<float> newCoord;
-  float zeta = acos((v.z - position.z)/r);
-  float sigma = atan2(v.y - position.y, v.x - position.x);
-  if(sigma < 0) sigma += 2*M_PI; //our space for u is between 0 and 1
-  newCoord.push_back(sigma/(2*M_PI)); //u
+  float zeta = acos(v.z/r); //from spherical coord we find zeta and phi
+  float phi = atan2(v.y, v.x);
+  if(phi < 0) phi += 2*M_PI; //our space for u is between 0 and 1
+  newCoord.push_back(phi/(2*M_PI)); //u
   newCoord.push_back((M_PI - zeta)/M_PI); //v
   return newCoord;
 }
@@ -67,6 +66,6 @@ Sphere::Sphere(Point const &pos, double radius,double angle, Vector const &axis)
     axis(axis.normalized())
 {}
 
-Vector Sphere::applyRotationMatrix(Vector v){
-    return v*cos(angle) + axis.cross(v)*sin(angle) + axis*v.dot(axis)*(1-cos(angle));
+Vector Sphere::applyRotation(Vector v){
+    return v*cos(angle) + axis.cross(v)*sin(angle) + axis*v.dot(axis)*(1-cos(angle)); //Rodrigues' rotation formula https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula
 }
