@@ -1,0 +1,10 @@
+TODO:
+
+Abstraction of operations on each object's modelTransform
+	add the models to the mesh struct
+	rotation angles
+Separation of model and view
+
+add timer and everything llike that
+
+turbosquid.com
