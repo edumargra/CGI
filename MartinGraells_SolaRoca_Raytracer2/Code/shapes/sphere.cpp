@@ -42,7 +42,7 @@ Hit Sphere::intersect(Ray const &ray)
 
 vector<float> Sphere::UVcoord(Vector v){ //v is initially a point in space coord
   v = v - position; //v is now the vector from the center of the sphere to the point passsed as a parameter
-  v = applyRotation(v); //we rotate the sphere (only the texture)
+  v = applyRotation(v); //we rotate the sphere (only the texture point)
   vector<float> newCoord;
   float zeta = acos(v.z/r); //from spherical coord we find zeta and phi
   float phi = atan2(v.y, v.x);

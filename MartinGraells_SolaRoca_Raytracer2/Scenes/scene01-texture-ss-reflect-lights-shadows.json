@@ -62,7 +62,7 @@
             "position": [140, 220, 400],
             "radius": 50,
             "rotation": [0,1,0.7],
-            "angle": 90,
+            "angle": 0,
             "material":
             {
                 "comment": "image is relative to scene file here!",

@@ -104,7 +104,7 @@ void Scene::render(Image &img)
 {
     unsigned w = img.width();
     unsigned h = img.height();
-    float factor = 1.f /(superSamplingFactor+1); //space between rays
+    float interval = 1.f /(superSamplingFactor+1); //space between rays
     for (unsigned y = 0; y < h; ++y)
     {
         for (unsigned x = 0; x < w; ++x)
@@ -112,7 +112,7 @@ void Scene::render(Image &img)
           Color col(0.0,0.0,0.0);
           for(unsigned k = 1; k <= superSamplingFactor; k++){
             for(unsigned g = 1; g <= superSamplingFactor; g++){
-              Point pixel(x + g*factor, h - 1 - y + k*factor, 0);
+              Point pixel(x + g*interval, h - 1 - y + k*interval, 0);
               Ray ray(eye, (pixel - eye).normalized());
               col += trace(ray,shadows,maxRecursionDepth);
             }
@@ -133,7 +133,7 @@ void Scene::setMaxRecursionDepth(int depth){
 }
 
 void Scene::setSuperSamplingFactor(int factor){
-    superSamplingFactor = sqrt(factor); //same number of rays in each direction
+    superSamplingFactor = factor; 
 }
 
 //Returns the reflection of v with respect to N, normalized
