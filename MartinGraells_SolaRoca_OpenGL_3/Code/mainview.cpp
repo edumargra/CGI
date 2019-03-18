@@ -123,25 +123,25 @@ void MainView::createShaderProgram()
 }
 
 void MainView::loadMeshes(){
-    loadMesh(":/models/cat.obj",{1,0,-4},{0,0,0},{0.01,0,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/cat.obj",{1,0,-4},{0,0,45},{0.1,0,0},{0.01,0.02,0}); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(0).texturePtr);
-    loadMesh(":/models/sphere.obj",{3,0,-4},{0,0,0},{0.01,0,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/sphere.obj",{3,0,-4},{0,0,0},{1,1,1},{0.01,0.02,0}); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(1).texturePtr);
 
-    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,0},{-0.01,0,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,-45},{0,-0.1,0},{-0.01,-0.03,0}); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(2).texturePtr);
-    loadMesh(":/models/sphere.obj",{-3,0,-4},{0,0,0},{-0.01,0,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/sphere.obj",{-3,0,-4},{0,0,0},{0,0,0},{-0.01,-0.03,0}); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(3).texturePtr);
 }
 
-void MainView::loadMesh(QString url, QVector3D pos, QVector3D orientation, QVector3D speed)
+void MainView::loadMesh(QString url, QVector3D pos, QVector3D orientation,QVector3D rotation, QVector3D speed)
 {
     Model model(url);
     model.unitize();
     QVector<float> meshData = model.getVNTInterleaved();
 
     //this->meshSize = model.getVertices().size();
-    Mesh mesh(pos,orientation,speed,model.getVertices().size());
+    Mesh mesh(pos,orientation,speed,rotation,model.getVertices().size());
 
     // Generate VAO
     //glGenVertexArrays(1, &meshVAO);
@@ -342,7 +342,9 @@ void MainView::destroyTextureBuffers()
 
 void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 {
-    rotation = { static_cast<float>(rotateX), static_cast<float>(rotateY), static_cast<float>(rotateZ) };
+    for(uint i= 0; i < meshes.size(); i++){
+        meshes.at(i).orientation = { static_cast<float>(rotateX), static_cast<float>(rotateY), static_cast<float>(rotateZ) };
+    }
     updateModelTransforms();
 }
 
@@ -360,14 +362,17 @@ void MainView::setShadingMode(ShadingMode shading)
 
 void MainView::updateEngine(){
     for(uint i=0; i< meshes.size(); i++){
-        qDebug() << width() << "," << meshes.at(i).location.x();
-        if(meshes.at(i).location.x() > width()/2 || meshes.at(i).location.x() < -width()/2){
+        if(meshes.at(i).location.x() > 3 || meshes.at(i).location.x() < -3){
            meshes.at(i).speed = {-meshes.at(i).speed.x(),meshes.at(i).speed.y(),meshes.at(i).speed.z()};
+           meshes.at(i).orientation = {meshes.at(i).orientation.x(), meshes.at(i).orientation.y()-180,meshes.at(i).orientation.z()};
         }
-        if(meshes.at(i).location.y() > height() || meshes.at(i).location.y() < 0){
+        if(meshes.at(i).location.y() > 2 || meshes.at(i).location.y() - 0.5 < -2){
             meshes.at(i).speed = {meshes.at(i).speed.x(),-meshes.at(i).speed.y(),meshes.at(i).speed.z()};
+            meshes.at(i).orientation = {meshes.at(i).orientation.x(), meshes.at(i).orientation.y(),-meshes.at(i).orientation.z()};
+
         }
         meshes.at(i).location += meshes.at(i).speed;
+        meshes.at(i).orientation += meshes.at(i).rotation;
     }
     updateModelTransforms();
 }

@@ -62,8 +62,6 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     std::vector<Mesh> meshes;
 
     // Texture
-    //GLuint texturePtr;
-
     // Transforms
     float scale = 1.f;
     QVector3D rotation;
@@ -115,7 +113,7 @@ private:
     void createShaderProgram();
     void loadMeshes();
     void updateEngine();
-    void loadMesh(QString url, QVector3D pos, QVector3D orientation, QVector3D speed);
+    void loadMesh(QString url, QVector3D pos, QVector3D orientation,QVector3D rotation, QVector3D speed);
 
     // Loads texture data into the buffer of texturePtr.
     void loadTexture(QString file, GLuint &texturePtr);

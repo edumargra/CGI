@@ -11,6 +11,7 @@ struct Mesh
     QVector3D location;
     QVector3D orientation;
     QVector3D speed;
+    QVector3D rotation;
     GLuint vao;
     GLuint vbo;
     int numVertices;
@@ -20,12 +21,13 @@ struct Mesh
 
     Mesh(){}
 
-    Mesh(QVector3D location,QVector3D orientation,QVector3D speed,int numVertices)
+    Mesh(QVector3D location,QVector3D orientation,QVector3D speed,QVector3D rotation,int numVertices)
         :
           location(location),
           orientation(orientation),
           speed(speed),
-          numVertices(numVertices)
+          numVertices(numVertices),
+          rotation(rotation)
     {   }
 };
 
