@@ -2,6 +2,7 @@
 #define MESH
 
 #include <QVector3D>
+#include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
 
 
@@ -11,8 +12,11 @@ struct Mesh
     QVector3D orientation;
     QVector3D speed;
     GLuint vao;
+    GLuint vbo;
     int numVertices;
     GLuint texturePtr;
+    QMatrix4x4 model;
+    QMatrix3x3 normalMatrix;
 
     Mesh(){}
 

@@ -26,13 +26,13 @@ MainView::MainView(QWidget *parent) : QOpenGLWidget(parent) {
  * Use this to clean up your variables, buffers etc.
  *
  */
+
 MainView::~MainView() {
     debugLogger->stopLogging();
 
     qDebug() << "MainView destructor";
 
-    glDeleteTextures(1, &meshes.at(0).texturePtr);
-
+    destroyTextureBuffers();
     destroyModelBuffers();
 }
 
@@ -68,8 +68,7 @@ void MainView::initializeGL() {
     glClearColor(0.0, 1.0, 0.0, 1.0);
 
     createShaderProgram();
-    loadMesh(":/models/cat.obj",{0,0,-4},{1,0,0},{0.01,0,0}); //texture, init pos, orientation, speed
-    loadTexture(":/textures/cat_diff.png",meshes.at(0).texturePtr);
+    loadMeshes();
 
     // Initialize transformations
     updateProjectionTransform();
@@ -123,6 +122,18 @@ void MainView::createShaderProgram()
     uniformTextureSamplerPhong      = phongShaderProgram.uniformLocation("textureSampler");
 }
 
+void MainView::loadMeshes(){
+    loadMesh(":/models/cat.obj",{1,0,-4},{0,0,0},{0.01,0,0}); //texture, init pos, orientation, speed
+    loadTexture(":/textures/rug_logo.png",meshes.at(0).texturePtr);
+    loadMesh(":/models/sphere.obj",{3,0,-4},{0,0,0},{0.01,0,0}); //texture, init pos, orientation, speed
+    loadTexture(":/textures/rug_logo.png",meshes.at(1).texturePtr);
+
+    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,0},{-0.01,0,0}); //texture, init pos, orientation, speed
+    loadTexture(":/textures/rug_logo.png",meshes.at(2).texturePtr);
+    loadMesh(":/models/sphere.obj",{-3,0,-4},{0,0,0},{-0.01,0,0}); //texture, init pos, orientation, speed
+    loadTexture(":/textures/rug_logo.png",meshes.at(3).texturePtr);
+}
+
 void MainView::loadMesh(QString url, QVector3D pos, QVector3D orientation, QVector3D speed)
 {
     Model model(url);
@@ -141,8 +152,8 @@ void MainView::loadMesh(QString url, QVector3D pos, QVector3D orientation, QVect
 
 
     // Generate VBO
-    glGenBuffers(1, &meshVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, meshVBO);
+    glGenBuffers(1, &mesh.vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
 
     // Write the data to the buffer
     glBufferData(GL_ARRAY_BUFFER, meshData.size() * sizeof(float), meshData.data(), GL_STATIC_DRAW);
@@ -204,26 +215,38 @@ void MainView::paintGL() {
     case NORMAL:
         shaderProgram = &normalShaderProgram;
         shaderProgram->bind();
-        updateNormalUniforms();
         break;
     case GOURAUD:
         shaderProgram = &gouraudShaderProgram;
         shaderProgram->bind();
-        updateGouraudUniforms();
         break;
     case PHONG:
         shaderProgram = &phongShaderProgram;
         shaderProgram->bind();
-        updatePhongUniforms();
         break;
     }
 
     // Set the texture and draw the mesh.
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, meshes.at(0).texturePtr);
+    updateEngine();
+    for(uint i=0; i < meshes.size(); i++){
+        switch (currentShader) {
+        case NORMAL:
+            updateNormalUniforms(i);
+            break;
+        case GOURAUD:
+            updateGouraudUniforms(i);
+            break;
+        case PHONG:
+            updatePhongUniforms(i);
+            break;
+        }
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, meshes.at(i).texturePtr);
 
-    glBindVertexArray(meshes.at(0).vao);
-    glDrawArrays(GL_TRIANGLES, 0, meshes.at(0).numVertices);
+        glBindVertexArray(meshes.at(i).vao);
+        glDrawArrays(GL_TRIANGLES, 0, meshes.at(i).numVertices);
+    }
+
 
     shaderProgram->release();
 }
@@ -243,18 +266,18 @@ void MainView::resizeGL(int newWidth, int newHeight)
     updateProjectionTransform();
 }
 
-void MainView::updateNormalUniforms()
+void MainView::updateNormalUniforms(uint i)
 {
     glUniformMatrix4fv(uniformProjectionTransformNormal, 1, GL_FALSE, projectionTransform.data());
-    glUniformMatrix4fv(uniformModelViewTransformNormal, 1, GL_FALSE, meshTransform.data());
-    glUniformMatrix3fv(uniformNormalTransformNormal, 1, GL_FALSE, meshNormalTransform.data());
+    glUniformMatrix4fv(uniformModelViewTransformNormal, 1, GL_FALSE, meshes.at(i).model.data());
+    glUniformMatrix3fv(uniformNormalTransformNormal, 1, GL_FALSE, meshes.at(i).normalMatrix.data());
 }
 
-void MainView::updateGouraudUniforms()
+void MainView::updateGouraudUniforms(uint i)
 {
     glUniformMatrix4fv(uniformProjectionTransformGouraud, 1, GL_FALSE, projectionTransform.data());
-    glUniformMatrix4fv(uniformModelViewTransformGouraud, 1, GL_FALSE, meshTransform.data());
-    glUniformMatrix3fv(uniformNormalTransformGouraud, 1, GL_FALSE, meshNormalTransform.data());
+    glUniformMatrix4fv(uniformModelViewTransformGouraud, 1, GL_FALSE, meshes.at(i).model.data());
+    glUniformMatrix3fv(uniformNormalTransformGouraud, 1, GL_FALSE, meshes.at(i).normalMatrix.data());
 
     glUniform4fv(uniformMaterialGouraud, 1, &material[0]);
     glUniform3fv(uniformLightPositionGouraud, 1, &lightPosition[0]);
@@ -263,17 +286,18 @@ void MainView::updateGouraudUniforms()
     glUniform1i(uniformTextureSamplerGouraud, 0); // Redundant now, but useful when you have multiple textures.
 }
 
-void MainView::updatePhongUniforms()
+void MainView::updatePhongUniforms(uint i)
 {
     glUniformMatrix4fv(uniformProjectionTransformPhong, 1, GL_FALSE, projectionTransform.data());
-    glUniformMatrix4fv(uniformModelViewTransformPhong, 1, GL_FALSE, meshTransform.data());
-    glUniformMatrix3fv(uniformNormalTransformPhong, 1, GL_FALSE, meshNormalTransform.data());
+    glUniformMatrix4fv(uniformModelViewTransformPhong, 1, GL_FALSE, meshes.at(i).model.data());
+    glUniformMatrix3fv(uniformNormalTransformPhong, 1, GL_FALSE, meshes.at(i).normalMatrix.data());
 
     glUniform4fv(uniformMaterialPhong, 1, &material[0]);
     glUniform3fv(uniformLightPositionPhong, 1, &lightPosition[0]);
     glUniform3fv(uniformLightColourPhong, 1, &lightColour[0]);
 
-    glUniform1i(uniformTextureSamplerGouraud, 0);
+    glUniform1i(uniformTextureSamplerPhong, 0);
+
 }
 
 void MainView::updateProjectionTransform()
@@ -285,11 +309,13 @@ void MainView::updateProjectionTransform()
 
 void MainView::updateModelTransforms()
 {
-    meshTransform.setToIdentity();
-    meshTransform.translate(0, 0, -4);
-    meshTransform.scale(scale);
-    meshTransform.rotate(QQuaternion::fromEulerAngles(rotation));
-    meshNormalTransform = meshTransform.normalMatrix();
+    for(uint i = 0; i < meshes.size(); i++){
+        meshes.at(i).model.setToIdentity();
+        meshes.at(i).model.translate(meshes.at(i).location.x(), meshes.at(i).location.y(), meshes.at(i).location.z());
+        meshes.at(i).model.scale(scale);
+        meshes.at(i).model.rotate(QQuaternion::fromEulerAngles(meshes.at(i).orientation));
+        meshes.at(i).normalMatrix = meshes.at(i).model.normalMatrix();
+    }
 
     update();
 }
@@ -298,8 +324,18 @@ void MainView::updateModelTransforms()
 
 void MainView::destroyModelBuffers()
 {
-    glDeleteBuffers(1, &meshVBO);
-    glDeleteVertexArrays(1, &meshes.at(0).vao);
+    for(uint i=0; i < meshes.size(); i++){
+        glDeleteBuffers(1, &meshes.at(i).vbo);
+        glDeleteVertexArrays(1, &meshes.at(i).vao);
+    }
+
+}
+
+void MainView::destroyTextureBuffers()
+{
+    for(uint i = 0; i < meshes.size(); i++){
+        glDeleteTextures(1, &meshes.at(i).texturePtr);
+    }
 }
 
 // --- Public interface
@@ -322,6 +358,19 @@ void MainView::setShadingMode(ShadingMode shading)
     currentShader = shading;
 }
 
+void MainView::updateEngine(){
+    for(uint i=0; i< meshes.size(); i++){
+        qDebug() << width() << "," << meshes.at(i).location.x();
+        if(meshes.at(i).location.x() > width()/2 || meshes.at(i).location.x() < -width()/2){
+           meshes.at(i).speed = {-meshes.at(i).speed.x(),meshes.at(i).speed.y(),meshes.at(i).speed.z()};
+        }
+        if(meshes.at(i).location.y() > height() || meshes.at(i).location.y() < 0){
+            meshes.at(i).speed = {meshes.at(i).speed.x(),-meshes.at(i).speed.y(),meshes.at(i).speed.z()};
+        }
+        meshes.at(i).location += meshes.at(i).speed;
+    }
+    updateModelTransforms();
+}
 // --- Private helpers
 
 /**

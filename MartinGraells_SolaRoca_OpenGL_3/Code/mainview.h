@@ -90,6 +90,8 @@ public:
     void setScale(int scale);
     void setShadingMode(ShadingMode shading);
 
+    void destroyTextureBuffers();
+
 protected:
     void initializeGL();
     void resizeGL(int newWidth, int newHeight);
@@ -111,6 +113,8 @@ private slots:
 
 private:
     void createShaderProgram();
+    void loadMeshes();
+    void updateEngine();
     void loadMesh(QString url, QVector3D pos, QVector3D orientation, QVector3D speed);
 
     // Loads texture data into the buffer of texturePtr.
@@ -121,9 +125,9 @@ private:
     void updateProjectionTransform();
     void updateModelTransforms();
 
-    void updateNormalUniforms();
-    void updateGouraudUniforms();
-    void updatePhongUniforms();
+    void updateNormalUniforms(uint i);
+    void updateGouraudUniforms(uint i);
+    void updatePhongUniforms(uint i);
 
     // Useful utility method to convert image to bytes.
     QVector<quint8> imageToBytes(QImage image);
