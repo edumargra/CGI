@@ -366,7 +366,7 @@ void MainView::updateEngine(){
            meshes.at(i).speed = {-meshes.at(i).speed.x(),meshes.at(i).speed.y(),meshes.at(i).speed.z()};
            meshes.at(i).orientation = {meshes.at(i).orientation.x(), meshes.at(i).orientation.y()-180,meshes.at(i).orientation.z()};
         }
-        if(meshes.at(i).location.y() > 2 || meshes.at(i).location.y() - 0.5 < -2){
+        if(meshes.at(i).location.y() > 2 || meshes.at(i).location.y()< -1.5){
             meshes.at(i).speed = {meshes.at(i).speed.x(),-meshes.at(i).speed.y(),meshes.at(i).speed.z()};
             meshes.at(i).orientation = {meshes.at(i).orientation.x(), meshes.at(i).orientation.y(),-meshes.at(i).orientation.z()};
 
