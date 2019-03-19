@@ -64,6 +64,8 @@ class MainView : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     // Texture
     // Transforms
     float scale = 1.f;
+    QVector3D generalRotation = {0.f,0.f,0.f};
+    bool widgetRotation = false;
     QVector3D rotation;
     QMatrix4x4 projectionTransform;
     QMatrix3x3 meshNormalTransform;

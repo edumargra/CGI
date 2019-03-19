@@ -1,3 +1,3 @@
-/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer2/build/CMakeFiles/edit_cache.dir
-/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer2/build/CMakeFiles/rebuild_cache.dir
-/home/s3836452/Documents/CGI/MartinGraells_SolaRoca_Raytracer2/build/CMakeFiles/ray.dir
+/home/s3834549/Desktop/CGI/CGI/MartinGraells_SolaRoca_Raytracer2/build/CMakeFiles/edit_cache.dir
+/home/s3834549/Desktop/CGI/CGI/MartinGraells_SolaRoca_Raytracer2/build/CMakeFiles/rebuild_cache.dir
+/home/s3834549/Desktop/CGI/CGI/MartinGraells_SolaRoca_Raytracer2/build/CMakeFiles/ray.dir

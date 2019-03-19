@@ -47,8 +47,8 @@ vector<float> Sphere::UVcoord(Vector v){ //v is initially a point in space coord
   float zeta = acos(v.z/r); //from spherical coord we find zeta and phi
   float phi = atan2(v.y, v.x);
   if(phi < 0) phi += 2*M_PI; //our space for u is between 0 and 1
-  newCoord.push_back(phi/(2*M_PI)); //u
-  newCoord.push_back((M_PI - zeta)/M_PI); //v
+  newCoord.push_back(0.5+(phi/(2*M_PI))); //u
+  newCoord.push_back((zeta)/M_PI); //v
   return newCoord;
 }
 

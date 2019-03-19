@@ -123,9 +123,9 @@ void MainView::createShaderProgram()
 }
 
 void MainView::loadMeshes(){
-    loadMesh(":/models/cat.obj",{1,0,-4},{0,0,45},{0.1,0,0},{0.01,0.02,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/cat.obj",{1,1,-4},{0,0,45},{1,4,3},{0.01,0.02,0}); //texture, init pos, orientation,rotation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(0).texturePtr);
-    loadMesh(":/models/sphere.obj",{3,0,-4},{0,0,0},{1,1,1},{0.01,0.02,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/sphere.obj",{3,1,-4},{0,0,0},{1,1,1},{0.01,0.02,0}); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(1).texturePtr);
 
     loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,-45},{0,-0.1,0},{-0.01,-0.03,0}); //texture, init pos, orientation, speed
@@ -313,7 +313,7 @@ void MainView::updateModelTransforms()
         meshes.at(i).model.setToIdentity();
         meshes.at(i).model.translate(meshes.at(i).location.x(), meshes.at(i).location.y(), meshes.at(i).location.z());
         meshes.at(i).model.scale(scale);
-        meshes.at(i).model.rotate(QQuaternion::fromEulerAngles(meshes.at(i).orientation));
+        meshes.at(i).model.rotate(QQuaternion::fromEulerAngles(meshes.at(i).orientation + generalRotation));
         meshes.at(i).normalMatrix = meshes.at(i).model.normalMatrix();
     }
 
@@ -343,7 +343,7 @@ void MainView::destroyTextureBuffers()
 void MainView::setRotation(int rotateX, int rotateY, int rotateZ)
 {
     for(uint i= 0; i < meshes.size(); i++){
-        meshes.at(i).orientation = { static_cast<float>(rotateX), static_cast<float>(rotateY), static_cast<float>(rotateZ) };
+        generalRotation = { static_cast<float>(rotateX), static_cast<float>(rotateY), static_cast<float>(rotateZ) };
     }
     updateModelTransforms();
 }
