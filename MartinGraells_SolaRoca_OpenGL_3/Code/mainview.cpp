@@ -123,25 +123,25 @@ void MainView::createShaderProgram()
 }
 
 void MainView::loadMeshes(){
-    loadMesh(":/models/cat.obj",{1,1,-4},{0,0,45},{1,4,3},{0.03,0.02,0}); //texture, init pos, orientation,rotation, speed
+    loadMesh(":/models/cat.obj",{1,1,-4},{0,0,45},{1,4,3},{0.03,0.02,0},0.5f); //texture, init pos, orientation,rotation, speed
     loadTexture(":/textures/cat_diff.png",meshes.at(0).texturePtr);
-    loadMesh(":/models/cube.obj",{3,1,-4},{0,0,0},{1,1,1},{0.01,0.02,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/cube.obj",{3,1,-4},{0,0,0},{1,1,1},{0.01,0.02,0},0.1f); //texture, init pos, orientation, speed
     loadTexture(":/textures/earthmap1k.png",meshes.at(1).texturePtr);
 
-    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,-45},{0,-0.1,0},{-0.05,-0.03,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,-45},{0,-0.1,0},{-0.05,-0.03,0},0.3f); //texture, init pos, orientation, speed
     loadTexture(":/textures/cat_spec.png",meshes.at(2).texturePtr);
-    loadMesh(":/models/sphere.obj",{-3,0,-4},{0,0,0},{0,0,0},{-0.01,-0.03,0}); //texture, init pos, orientation, speed
+    loadMesh(":/models/sphere.obj",{-3,0,-4},{0,0,0},{0,0,0},{-0.01,-0.03,0}, 0.2f); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(3).texturePtr);
 }
 
-void MainView::loadMesh(QString url, QVector3D pos, QVector3D orientation,QVector3D rotation, QVector3D speed)
+void MainView::loadMesh(QString url, QVector3D pos, QVector3D orientation,QVector3D rotation, QVector3D speed, float scale)
 {
     Model model(url);
     model.unitize();
     QVector<float> meshData = model.getVNTInterleaved();
 
     //this->meshSize = model.getVertices().size();
-    Mesh mesh(pos,orientation,speed,rotation,model.getVertices().size());
+    Mesh mesh(pos,orientation,speed,rotation,model.getVertices().size(),scale);
 
     // Generate VAO
     //glGenVertexArrays(1, &meshVAO);
@@ -312,7 +312,7 @@ void MainView::updateModelTransforms()
     for(uint i = 0; i < meshes.size(); i++){
         meshes.at(i).model.setToIdentity();
         meshes.at(i).model.translate(meshes.at(i).location.x(), meshes.at(i).location.y(), meshes.at(i).location.z());
-        meshes.at(i).model.scale(scale);
+        meshes.at(i).model.scale(meshes.at(i).scale + scale);
         meshes.at(i).model.rotate(QQuaternion::fromEulerAngles(meshes.at(i).orientation + generalRotation));
         meshes.at(i).normalMatrix = meshes.at(i).model.normalMatrix();
     }

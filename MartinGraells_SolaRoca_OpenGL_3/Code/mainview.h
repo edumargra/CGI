@@ -115,7 +115,7 @@ private:
     void createShaderProgram();
     void loadMeshes();
     void updateEngine();
-    void loadMesh(QString url, QVector3D pos, QVector3D orientation,QVector3D rotation, QVector3D speed);
+    void loadMesh(QString url, QVector3D pos, QVector3D orientation,QVector3D rotation, QVector3D speed, float scale);
 
     // Loads texture data into the buffer of texturePtr.
     void loadTexture(QString file, GLuint &texturePtr);
