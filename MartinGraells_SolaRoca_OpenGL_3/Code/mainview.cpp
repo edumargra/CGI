@@ -123,13 +123,13 @@ void MainView::createShaderProgram()
 }
 
 void MainView::loadMeshes(){
-    loadMesh(":/models/cat.obj",{1,1,-4},{0,0,45},{1,4,3},{0.01,0.02,0}); //texture, init pos, orientation,rotation, speed
-    loadTexture(":/textures/rug_logo.png",meshes.at(0).texturePtr);
-    loadMesh(":/models/sphere.obj",{3,1,-4},{0,0,0},{1,1,1},{0.01,0.02,0}); //texture, init pos, orientation, speed
-    loadTexture(":/textures/rug_logo.png",meshes.at(1).texturePtr);
+    loadMesh(":/models/cat.obj",{1,1,-4},{0,0,45},{1,4,3},{0.03,0.02,0}); //texture, init pos, orientation,rotation, speed
+    loadTexture(":/textures/cat_diff.png",meshes.at(0).texturePtr);
+    loadMesh(":/models/cube.obj",{3,1,-4},{0,0,0},{1,1,1},{0.01,0.02,0}); //texture, init pos, orientation, speed
+    loadTexture(":/textures/earthmap1k.png",meshes.at(1).texturePtr);
 
-    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,-45},{0,-0.1,0},{-0.01,-0.03,0}); //texture, init pos, orientation, speed
-    loadTexture(":/textures/rug_logo.png",meshes.at(2).texturePtr);
+    loadMesh(":/models/cat.obj",{-1,0,-4},{0,180,-45},{0,-0.1,0},{-0.05,-0.03,0}); //texture, init pos, orientation, speed
+    loadTexture(":/textures/cat_spec.png",meshes.at(2).texturePtr);
     loadMesh(":/models/sphere.obj",{-3,0,-4},{0,0,0},{0,0,0},{-0.01,-0.03,0}); //texture, init pos, orientation, speed
     loadTexture(":/textures/rug_logo.png",meshes.at(3).texturePtr);
 }
@@ -366,7 +366,7 @@ void MainView::updateEngine(){
            meshes.at(i).speed = {-meshes.at(i).speed.x(),meshes.at(i).speed.y(),meshes.at(i).speed.z()};
            meshes.at(i).orientation = {meshes.at(i).orientation.x(), meshes.at(i).orientation.y()-180,meshes.at(i).orientation.z()};
         }
-        if(meshes.at(i).location.y() > 2 || meshes.at(i).location.y()< -1.5){
+        if(meshes.at(i).location.y() > 2 || meshes.at(i).location.y()< -2){
             meshes.at(i).speed = {meshes.at(i).speed.x(),-meshes.at(i).speed.y(),meshes.at(i).speed.z()};
             meshes.at(i).orientation = {meshes.at(i).orientation.x(), meshes.at(i).orientation.y(),-meshes.at(i).orientation.z()};
 
